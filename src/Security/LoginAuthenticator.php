@@ -94,7 +94,7 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator implements Passw
             return new RedirectResponse($targetPath);
         }
 // there is a redirect after auth pal, dont forget
-      return new RedirectResponse($this->urlGenerator->generate('user_index'));
+      return new RedirectResponse($this->urlGenerator->generate('quiz_index'));
 
     }
 
