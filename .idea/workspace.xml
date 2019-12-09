@@ -2,12 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="74fb5669-3723-4b1f-958f-6cb9483fcfa1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/main/main_page.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/result/questions.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/d4de2748-be35-47f6-ac47-fbb41e70fccb.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/d4de2748-be35-47f6-ac47-fbb41e70fccb.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/QuizController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/QuizController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Quiz.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Quiz.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/RegistrationFormType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/RegistrationFormType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Security/LoginAuthenticator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/LoginAuthenticator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/registration/register.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/register.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/quiz/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/quiz/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/quiz/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/quiz/show.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +52,13 @@
         <item name="Quiz@localhost" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="Quiz: schema" type="76f4a085:MysqlImplModel$Schema" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="Quiz@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="Quiz: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="result: table" type="285a2a93:MysqlImplModel$Table" />
       </path>
     </expand>
     <select />
@@ -165,7 +178,9 @@
     </include_path>
   </component>
   <component name="ProjectId" id="1UWOEvf1203cWZXAibbIbkiJDVQ" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -174,8 +189,14 @@
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates/main" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates/main" />
+    </key>
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
@@ -202,6 +223,9 @@
       <workItem from="1575468782448" duration="6384000" />
       <workItem from="1575480685204" duration="254000" />
       <workItem from="1575484595872" duration="3059000" />
+      <workItem from="1575620221909" duration="601000" />
+      <workItem from="1575731808921" duration="5899000" />
+      <workItem from="1575885463571" duration="4206000" />
     </task>
     <servers />
   </component>
@@ -209,17 +233,49 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="588" y="214" width="800" height="677" key="#PHP" timestamp="1575735841658">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="588" y="214" width="800" height="677" key="#PHP/67.27.1853.1053@67.27.1853.1053" timestamp="1575735841658" />
     <state x="723" y="306" width="800" height="677" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1575469170667">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="723" y="306" width="800" height="677" key="#com.intellij.execution.impl.EditConfigurationsDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1575469170667" />
-    <state x="726" y="310" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1575474660219">
+    <state x="726" y="310" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1575888933089">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="726" y="310" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1575474660219" />
-    <state x="649" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1575484945021">
+    <state x="726" y="310" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1575888933089" />
+    <state x="776" y="310" width="424" height="484" key="FileChooserDialogImpl" timestamp="1575621863614">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="649" y="380" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1575484945021" />
+    <state x="776" y="310" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.1053@67.27.1853.1053" timestamp="1575621863614" />
+    <state width="1244" height="278" key="GridCell.Tab.0.bottom" timestamp="1575885760103">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state width="1244" height="278" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1575885760103" />
+    <state width="1244" height="278" key="GridCell.Tab.0.center" timestamp="1575885760102">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state width="1244" height="278" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1575885760102" />
+    <state width="1244" height="278" key="GridCell.Tab.0.left" timestamp="1575885760102">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state width="1244" height="278" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1575885760102" />
+    <state width="1244" height="278" key="GridCell.Tab.0.right" timestamp="1575885760102">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state width="1244" height="278" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1575885760102" />
+    <state x="588" y="288" width="800" height="528" key="Vcs.Push.Dialog.v2" timestamp="1575736215976">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="588" y="288" width="800" height="528" key="Vcs.Push.Dialog.v2/67.27.1853.1053@67.27.1853.1053" timestamp="1575736215976" />
+    <state x="644" y="378" key="com.intellij.ide.util.TipDialog" timestamp="1575885463756">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="644" y="378" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1575885463756" />
+    <state x="637" y="288" width="713" height="528" key="find.popup" timestamp="1575734125165">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="637" y="288" width="713" height="528" key="find.popup/67.27.1853.1053@67.27.1853.1053" timestamp="1575734125165" />
   </component>
 </project>

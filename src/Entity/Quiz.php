@@ -34,7 +34,7 @@ class Quiz
     private $results;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="quizzes")
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="quizzes")
      */
     private $users;
 
@@ -116,7 +116,6 @@ class Quiz
     {
         if (!$this->users->contains($user)) {
             $this->users[] = $user;
-            $user->addQuiz($this);
         }
 
         return $this;
@@ -126,7 +125,6 @@ class Quiz
     {
         if ($this->users->contains($user)) {
             $this->users->removeElement($user);
-            $user->removeQuiz($this);
         }
 
         return $this;

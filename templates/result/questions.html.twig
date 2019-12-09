@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Play!{% endblock %}
+
+{% block body %}
+    <h1>Quiz starts</h1>
+
+
+
+    <question from questions>
+        question.name
+        question.text
+        question.answers
+        <answer from answers>
+            answer
+            checkbox
+{% endblock %}

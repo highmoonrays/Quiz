@@ -53,7 +53,7 @@ class User implements UserInterface
     private $results;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Quiz", inversedBy="users")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Quiz", mappedBy="users")
      */
     private $quizzes;
 
@@ -208,6 +208,7 @@ class User implements UserInterface
     {
         if (!$this->quizzes->contains($quiz)) {
             $this->quizzes[] = $quiz;
+            $quiz->addUser($this);
         }
 
         return $this;
@@ -217,6 +218,7 @@ class User implements UserInterface
     {
         if ($this->quizzes->contains($quiz)) {
             $this->quizzes->removeElement($quiz);
+            $quiz->removeUser($this);
         }
 
         return $this;

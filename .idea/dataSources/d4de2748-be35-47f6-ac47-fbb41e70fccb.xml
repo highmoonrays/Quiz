@@ -959,75 +959,76 @@
     <table id="244" parent="2" name="quiz">
       <Collation>utf8mb4_unicode_ci</Collation>
     </table>
-    <table id="245" parent="2" name="result">
+    <table id="245" parent="2" name="quiz_user">
       <Collation>utf8mb4_unicode_ci</Collation>
     </table>
-    <table id="246" parent="2" name="user">
+    <table id="246" parent="2" name="result">
       <Collation>utf8mb4_unicode_ci</Collation>
     </table>
-    <column id="247" parent="244" name="id">
+    <table id="247" parent="2" name="user">
+      <Collation>utf8mb4_unicode_ci</Collation>
+    </table>
+    <column id="248" parent="244" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="248" parent="244" name="name">
+    <column id="249" parent="244" name="name">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="249" parent="244" name="status">
+    <column id="250" parent="244" name="status">
       <Position>3</Position>
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="250" parent="244" name="PRIMARY">
+    <key id="251" parent="244" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="251" parent="245" name="id">
+    <column id="252" parent="245" name="quiz_id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="252" parent="245" name="user_id">
+    <column id="253" parent="245" name="user_id">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="253" parent="245" name="quiz_id">
-      <Position>3</Position>
-      <DataType>int(11)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <index id="254" parent="245" name="IDX_136AC113A76ED395">
-      <ColNames>user_id</ColNames>
+    <index id="254" parent="245" name="IDX_47622A12853CD175">
+      <ColNames>quiz_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="255" parent="245" name="IDX_136AC113853CD175">
-      <ColNames>quiz_id</ColNames>
+    <index id="255" parent="245" name="IDX_47622A12A76ED395">
+      <ColNames>user_id</ColNames>
       <Type>btree</Type>
     </index>
     <key id="256" parent="245" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
-      <ColNames>id</ColNames>
+      <ColNames>quiz_id
+user_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="257" parent="245" name="FK_136AC113A76ED395">
-      <ColNames>user_id</ColNames>
-      <RefTableName>user</RefTableName>
-      <RefColNames>id</RefColNames>
-    </foreign-key>
-    <foreign-key id="258" parent="245" name="FK_136AC113853CD175">
+    <foreign-key id="257" parent="245" name="FK_47622A12853CD175">
       <ColNames>quiz_id</ColNames>
       <RefTableName>quiz</RefTableName>
       <RefColNames>id</RefColNames>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <foreign-key id="258" parent="245" name="FK_47622A12A76ED395">
+      <ColNames>user_id</ColNames>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
     <column id="259" parent="246" name="id">
       <Position>1</Position>
@@ -1036,46 +1037,86 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="260" parent="246" name="email">
+    <column id="260" parent="246" name="user_id">
+      <Position>2</Position>
+      <DataType>int(11)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="261" parent="246" name="quiz_id">
+      <Position>3</Position>
+      <DataType>int(11)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="262" parent="246" name="IDX_136AC113A76ED395">
+      <ColNames>user_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="263" parent="246" name="IDX_136AC113853CD175">
+      <ColNames>quiz_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="264" parent="246" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="265" parent="246" name="FK_136AC113A76ED395">
+      <ColNames>user_id</ColNames>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="266" parent="246" name="FK_136AC113853CD175">
+      <ColNames>quiz_id</ColNames>
+      <RefTableName>quiz</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="267" parent="247" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="268" parent="247" name="email">
       <Position>2</Position>
       <DataType>varchar(180)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="261" parent="246" name="roles">
+    <column id="269" parent="247" name="roles">
       <Position>3</Position>
       <DataType>json|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="262" parent="246" name="password">
+    <column id="270" parent="247" name="password">
       <Position>4</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="263" parent="246" name="first_name">
+    <column id="271" parent="247" name="first_name">
       <Position>5</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="264" parent="246" name="last_name">
+    <column id="272" parent="247" name="last_name">
       <Position>6</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="265" parent="246" name="UNIQ_8D93D649E7927C74">
+    <index id="273" parent="247" name="UNIQ_8D93D649E7927C74">
       <ColNames>email</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="266" parent="246" name="PRIMARY">
+    <key id="274" parent="247" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="267" parent="246" name="UNIQ_8D93D649E7927C74">
+    <key id="275" parent="247" name="UNIQ_8D93D649E7927C74">
       <ColNames>email</ColNames>
       <UnderlyingIndexName>UNIQ_8D93D649E7927C74</UnderlyingIndexName>
     </key>
