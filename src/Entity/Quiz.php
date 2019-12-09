@@ -43,10 +43,16 @@ class Quiz
      */
     private $users_number = 0;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Question", mappedBy="quizzes")
+     */
+    private $questions;
+
     public function __construct()
     {
         $this->results = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->questions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -143,6 +149,34 @@ class Quiz
     public function setUsersNumber(?int $users_number): self
     {
         $this->users_number = $users_number;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Question[]
+     */
+    public function getQuestions(): Collection
+    {
+        return $this->questions;
+    }
+
+    public function addQuestion(Question $question): self
+    {
+        if (!$this->questions->contains($question)) {
+            $this->questions[] = $question;
+            $question->addQuiz($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuestion(Question $question): self
+    {
+        if ($this->questions->contains($question)) {
+            $this->questions->removeElement($question);
+            $question->removeQuiz($this);
+        }
 
         return $this;
     }

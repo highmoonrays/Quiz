@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+    <div style="text-align:center">
+        {% block body %}Hello pal, in this site you can play some quizzes.
+            <br>
+            But first you must sign in, or register, if you never been there.
+            <br>
+            Have fun :)
+            <br>
+            <a href="{{ path('app_login') }}">Sing in</a>
+            <br>
+            <a href="{{ path('app_registration') }}">Sing up</a>
+        {% endblock %}
+    </div>
+</body>
+</html>
