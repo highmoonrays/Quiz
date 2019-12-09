@@ -38,6 +38,11 @@ class Quiz
      */
     private $users;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $users_number = 0;
+
     public function __construct()
     {
         $this->results = new ArrayCollection();
@@ -126,6 +131,18 @@ class Quiz
         if ($this->users->contains($user)) {
             $this->users->removeElement($user);
         }
+
+        return $this;
+    }
+
+    public function getUsersNumber(): ?int
+    {
+        return $this->users_number;
+    }
+
+    public function setUsersNumber(?int $users_number): self
+    {
+        $this->users_number = $users_number;
 
         return $this;
     }

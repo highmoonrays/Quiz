@@ -23,7 +23,7 @@
                 <td>
                     <a href="{{ path('quiz_show', {'id': quiz.id}) }}">show</a>
                     <a href="{{ path('quiz_edit', {'id': quiz.id}) }}">edit</a>
-                    <a href="{{ path('quiz_start', {'id': quiz.id}) }}">start</a>
+                    <a href="{{ path('start_playing', {'id': quiz.id}) }}">start</a>
                 </td>
             </tr>
         {% else %}

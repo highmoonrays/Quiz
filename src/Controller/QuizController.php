@@ -20,15 +20,15 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class QuizController extends AbstractController
 {
-//    /**
-//     * @Route("/", name="quiz_index", methods={"GET"})
-//     */
-//    public function index(QuizRepository $quizRepository): Response
-//    {
-//        return $this->render('quiz/index.html.twig', [
-//            'quizzes' => $quizRepository->findAll(),
-//        ]);
-//    }
+    /**
+     * @Route("/", name="quiz_index", methods={"GET"})
+     */
+    public function index(QuizRepository $quizRepository): Response
+    {
+        return $this->render('quiz/index.html.twig', [
+            'quizzes' => $quizRepository->findAll(),
+        ]);
+    }
 
     /**
      * @Route("/new", name="quiz_new", methods={"GET","POST"})
@@ -96,23 +96,4 @@ class QuizController extends AbstractController
 
         return $this->redirectToRoute('quiz_index');
     }
-//
-//    /**
-//     * @Route("/start/{id}", name="quiz_start", methods={"GET"})
-//     */
-//    public function start(Quiz $quiz): Response
-//    {
-//        $result = new Result();
-//
-//        $result->setUser($this->getUser());
-//        $result->setQuiz($quiz);
-//
-//        $entityManager = $this->getDoctrine()->getManager();
-//        $entityManager->persist($result);
-//        $entityManager->flush();
-//
-//        return $this->render('result/index.html.twig', [
-//            'quiz' => $quiz,
-//        ]);
-//    }
 }
