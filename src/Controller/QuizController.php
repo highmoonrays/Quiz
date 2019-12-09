@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Question;
 use App\Entity\Quiz;
 use App\Entity\User;
 use App\Entity\Result;
@@ -96,4 +97,29 @@ class QuizController extends AbstractController
 
         return $this->redirectToRoute('quiz_index');
     }
+
+//    /**
+//     * @param Quiz $quiz
+//     * @param Question $question
+//     * @return Response
+//     * @Route("/add_question, name="add_question")
+//     */
+//    public function add_question(Quiz $quiz, Question $question): Response
+//    {
+//        foreach ($quiz->getQuestions() as $value)
+//            if ($value == $question) {
+//                return $this->redirectToRoute("/");
+//            }
+//        $question = new Question();
+//        $quiz->addQuestion($question);
+//        $question->addQuiz($quiz);
+//        $entityManager = $this->getDoctrine()->getManager();
+//        $entityManager->persist($quiz);
+//        $entityManager->persist($question);
+//        $entityManager->flush();
+//
+//        return $this->render('playing/questions.html.twig', [
+//            'quiz' => $quiz,
+//        ]);
+//    }
 }

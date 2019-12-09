@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Answer;
 use App\Entity\Question;
+use App\Entity\Quiz;
+use App\Form\AnswersQuestionType;
 use App\Form\QuestionType;
 use App\Repository\QuestionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,11 +34,13 @@ class QuestionController extends AbstractController
     public function new(Request $request): Response
     {
         $question = new Question();
-        $form = $this->createForm(QuestionType::class, $question);
+        $answer = new Answer();
+        $form = $this->createForm(AnswersQuestionType::class, ['question' => $question, 'answer' => $answer]);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
+            $answer->setQuestion($question);
             $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($answer);
             $entityManager->persist($question);
             $entityManager->flush();
 
@@ -44,6 +49,7 @@ class QuestionController extends AbstractController
 
         return $this->render('question/new.html.twig', [
             'question' => $question,
+            'answer' => $answer,
             'form' => $form->createView(),
         ]);
     }

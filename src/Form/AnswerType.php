@@ -14,7 +14,6 @@ class AnswerType extends AbstractType
         $builder
             ->add('answer_text')
             ->add('true_or_not')
-            ->add('question')
         ;
     }
 
