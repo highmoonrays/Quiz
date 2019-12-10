@@ -11,6 +11,7 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Status</th>
+                <th>Users</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -20,6 +21,7 @@
                 <td>{{ quiz.id }}</td>
                 <td>{{ quiz.name }}</td>
                 <td>{{ quiz.status ? 'Yes' : 'No' }}</td>
+                <td>{{ quiz.usersNumber }}</td>
                 <td>
                     <a href="{{ path('quiz_show', {'id': quiz.id}) }}">show</a>
                     <a href="{{ path('start_playing', {'id': quiz.id}) }}">start</a>

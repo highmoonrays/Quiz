@@ -2,9 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Quiz;
-use App\Entity\Result;
-use App\Entity\User;
 use App\Repository\QuizRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;

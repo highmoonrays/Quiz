@@ -1,11 +1,8 @@
 <?php
-
+declare(strict_types=1);
 
 namespace App\Form;
 
-use App\Entity\Answer;
-use App\Entity\Question;
-use phpDocumentor\Reflection\Types\Null_;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

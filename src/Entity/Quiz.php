@@ -41,7 +41,7 @@ class Quiz
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $users_number = 0;
+    private $usersNumber = 0;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Question", mappedBy="quizzes")
@@ -141,17 +141,7 @@ class Quiz
         return $this;
     }
 
-    public function getUsersNumber(): ?int
-    {
-        return $this->users_number;
-    }
 
-    public function setUsersNumber(?int $users_number): self
-    {
-        $this->users_number = $users_number;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Question[]
@@ -179,5 +169,21 @@ class Quiz
         }
 
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getUsersNumber(): int
+    {
+        return $this->usersNumber;
+    }
+
+    /**
+     * @param int $usersNumber
+     */
+    public function setUsersNumber(int $usersNumber): void
+    {
+        $this->usersNumber = $usersNumber;
     }
 }

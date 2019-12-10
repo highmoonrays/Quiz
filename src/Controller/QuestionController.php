@@ -8,6 +8,9 @@ use App\Entity\Quiz;
 use App\Form\AnswersQuestionType;
 use App\Form\QuestionType;
 use App\Repository\QuestionRepository;
+use App\Repository\QuizRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,12 +22,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class QuestionController extends AbstractController
 {
     /**
-     * @Route("/", name="question_index", methods={"GET"})
+     * @Route("/{id}", name="question_index", methods={"GET"})
+     * @param QuestionRepository $questionRepository
+     * @return Response
      */
-    public function index(QuestionRepository $questionRepository): Response
+    public function index(QuestionRepository $questionRepository, Quiz $quiz): Response
     {
         return $this->render('question/index.html.twig', [
             'questions' => $questionRepository->findAll(),
+            'quiz' => $quiz,
         ]);
     }
 
@@ -34,14 +40,14 @@ class QuestionController extends AbstractController
     public function new(Request $request): Response
     {
         $question = new Question();
-        $answer = new Answer();
+        $answer= new Answer();
         $form = $this->createForm(AnswersQuestionType::class, ['question' => $question, 'answer' => $answer]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $answer->setQuestion($question);
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($answer);
             $entityManager->persist($question);
+            $entityManager->persist($answer);
             $entityManager->flush();
 
             return $this->redirectToRoute('question_index');
@@ -96,5 +102,22 @@ class QuestionController extends AbstractController
         }
 
         return $this->redirectToRoute('question_index');
+    }
+
+    /**
+     * @return Response
+     * @Route("/{quiz_id}/{id}/", name="question_add", methods={"GET", "POST"})
+     * @Entity("quiz", expr="repository.find(quiz_id)")
+     */
+    public function add(Quiz $quiz, Question $question): Response
+    {
+        foreach ($question->getQuizzes() as $value)
+            if ($value == $quiz)
+                return $this->redirectToRoute('quiz_index');
+        $quiz->addQuestion($question);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($quiz);
+        $entityManager->flush();
+        return $this->redirectToRoute('quiz_index');
     }
 }
