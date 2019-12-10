@@ -7,12 +7,12 @@
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Question_text</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Question_text</th>
+            <th>actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for question in questions %}
@@ -23,6 +23,7 @@
                 <td>
                     <a href="{{ path('question_show', {'id': question.id}) }}">show</a>
                     <a href="{{ path('question_edit', {'id': question.id}) }}">edit</a>
+                    <a href="{{ path('edit_quiz_question_add', {'quiz_id': quiz.id, 'id': question.id}) }}">add</a>
                 </td>
             </tr>
         {% else %}
@@ -33,5 +34,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('question_new') }}">Create new</a>
+    <a href="{{ path('edit_quiz_question_create', {'id': quiz.id}) }}">Create new</a>
 {% endblock %}

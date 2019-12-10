@@ -2,12 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Answer;
 use App\Entity\Question;
 use App\Entity\Quiz;
-use App\Entity\User;
-use App\Entity\Result;
+use App\Form\AnswersQuestionType;
 use App\Form\QuizType;
+use App\Repository\QuestionRepository;
 use App\Repository\QuizRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -97,4 +99,66 @@ class QuizController extends AbstractController
 
         return $this->redirectToRoute('quiz_index');
     }
+
+    /**
+     * @Route("/{id}/question", name="edit_quiz_questions_show", methods={"GET"})
+     * @param QuestionRepository $questionRepository
+     * @return Response
+     */
+    public function show_questions(QuestionRepository $questionRepository, Quiz $quiz): Response
+    {
+        return $this->render('quiz/edit_quiz_questions_show.html.twig', [
+            'questions' => $questionRepository->findAll(),
+            'quiz' => $quiz,
+        ]);
+    }
+
+
+    /**
+     * @return Response
+     * @Route("quiz/{quiz_id}/question/{id}/", name="edit_quiz_question_add", methods={"GET", "POST"})
+     * @Entity("quiz", expr="repository.find(quiz_id)")
+     */
+    public function add_question(Quiz $quiz, Question $question): Response
+    {
+        foreach ($question->getQuizzes() as $value)
+            if ($value == $quiz)
+                return $this->redirectToRoute('quiz_index');
+        $quiz->addQuestion($question);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($quiz);
+        $entityManager->flush();
+        return $this->redirectToRoute('quiz_index');
+    }
+
+    /**
+     * @Route("/{id}/question/create", name="edit_quiz_question_create", methods={"GET","POST"})
+     */
+    public function create_question(Request $request, Quiz $quiz, QuestionRepository $questionRepository): Response
+    {
+        $question = new Question();
+        $answer= new Answer();
+        $form = $this->createForm(AnswersQuestionType::class, ['question' => $question, 'answer' => $answer]);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $answer->setQuestion($question);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($question);
+            $entityManager->persist($answer);
+            $entityManager->flush();
+
+            return $this->render('quiz/edit_quiz_questions_show.html.twig', [
+                'questions' => $questionRepository->findAll(),
+                'quiz' => $quiz,
+            ]);
+        }
+
+        return $this->render('quiz/edit_quiz_question_create.html.twig', [
+            'quiz' => $quiz,
+            'question' => $question,
+            'answer' => $answer,
+            'form' => $form->createView(),
+        ]);
+    }
+
 }

@@ -5,7 +5,10 @@
 {% block body %}
     <h1>Edit Quiz</h1>
 
+    <a href="{{ path('edit_quiz_questions_show', {'id': quiz.id}) }}">Add a question</a>
+    <br>
     {{ include('quiz/_form.html.twig', {'button_label': 'Update'}) }}
+
 
     <a href="{{ path('quiz_index') }}">back to list</a>
 

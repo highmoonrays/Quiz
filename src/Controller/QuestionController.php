@@ -22,15 +22,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class QuestionController extends AbstractController
 {
     /**
-     * @Route("/{id}", name="question_index", methods={"GET"})
-     * @param QuestionRepository $questionRepository
+     * @Route("/", name="question_index", methods={"GET"})
      * @return Response
      */
-    public function index(QuestionRepository $questionRepository, Quiz $quiz): Response
+    public function index(QuestionRepository $questionRepository): Response
     {
         return $this->render('question/index.html.twig', [
             'questions' => $questionRepository->findAll(),
-            'quiz' => $quiz,
         ]);
     }
 
@@ -102,22 +100,5 @@ class QuestionController extends AbstractController
         }
 
         return $this->redirectToRoute('question_index');
-    }
-
-    /**
-     * @return Response
-     * @Route("/{quiz_id}/{id}/", name="question_add", methods={"GET", "POST"})
-     * @Entity("quiz", expr="repository.find(quiz_id)")
-     */
-    public function add(Quiz $quiz, Question $question): Response
-    {
-        foreach ($question->getQuizzes() as $value)
-            if ($value == $quiz)
-                return $this->redirectToRoute('quiz_index');
-        $quiz->addQuestion($question);
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($quiz);
-        $entityManager->flush();
-        return $this->redirectToRoute('quiz_index');
     }
 }

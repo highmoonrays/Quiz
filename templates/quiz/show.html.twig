@@ -26,6 +26,8 @@
 
     <a href="{{ path('quiz_edit', {'id': quiz.id}) }}">edit</a>
 
+    <a href="{{ path('edit_quiz_questions_show', {'id': quiz.id}) }}">Add a question</a>
+
 
     {{ include('quiz/_delete_form.html.twig') }}
 {% endblock %}
