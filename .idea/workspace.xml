@@ -2,15 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="74fb5669-3723-4b1f-958f-6cb9483fcfa1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/quiz/edit_quiz_question_create.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/quiz/edit_quiz_questions_show.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/playing/_form.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/PlayingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PlayingController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/QuestionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/QuestionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/QuizController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/QuizController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/question/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/question/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/quiz/_form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/quiz/_form.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/quiz/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/quiz/edit.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/quiz/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/quiz/show.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Answer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Answer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/AnswersQuestionType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/AnswersQuestionType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/QuestionType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/QuestionType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/playing/questions.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/playing/questions.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +57,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -209,7 +210,12 @@
               <path>
                 <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
                 <item name="root:Quiz@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="com.intellij.database.console.session.MessageBusSession@1603b890" type="9fbbdea:ServiceModel$ServiceNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@347f446f" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:Quiz@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@70f48666" type="9fbbdea:ServiceModel$ServiceNode" />
               </path>
             </expand>
             <select />
@@ -236,7 +242,9 @@
       <workItem from="1575885463571" duration="10208000" />
       <workItem from="1575895727321" duration="7000" />
       <workItem from="1575905070524" duration="6145000" />
-      <workItem from="1575973989078" duration="13729000" />
+      <workItem from="1575973989078" duration="20242000" />
+      <workItem from="1576058227643" duration="12464000" />
+      <workItem from="1576146782954" duration="2418000" />
     </task>
     <servers />
   </component>
@@ -256,30 +264,30 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="640" y="357" width="697" height="390" key="#com.intellij.fileTypes.FileTypeChooser/67.27.1853.1053@67.27.1853.1053" timestamp="1575986111704" />
-    <state x="726" y="310" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1575985601957">
+    <state x="726" y="310" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1576074382116">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="726" y="310" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1575985601957" />
+    <state x="726" y="310" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1576074382116" />
     <state x="776" y="310" width="424" height="484" key="FileChooserDialogImpl" timestamp="1575895732789">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="776" y="310" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.1053@67.27.1853.1053" timestamp="1575895732789" />
-    <state width="1244" height="278" key="GridCell.Tab.0.bottom" timestamp="1575974080693">
+    <state width="1244" height="278" key="GridCell.Tab.0.bottom" timestamp="1576147427752">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1244" height="278" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1575974080693" />
-    <state width="1244" height="278" key="GridCell.Tab.0.center" timestamp="1575974080692">
+    <state width="1244" height="278" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1576147427752" />
+    <state width="1244" height="278" key="GridCell.Tab.0.center" timestamp="1576147427752">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1244" height="278" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1575974080692" />
-    <state width="1244" height="278" key="GridCell.Tab.0.left" timestamp="1575974080692">
+    <state width="1244" height="278" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1576147427752" />
+    <state width="1244" height="278" key="GridCell.Tab.0.left" timestamp="1576147427751">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1244" height="278" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1575974080692" />
-    <state width="1244" height="278" key="GridCell.Tab.0.right" timestamp="1575974080693">
+    <state width="1244" height="278" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1576147427751" />
+    <state width="1244" height="278" key="GridCell.Tab.0.right" timestamp="1576147427752">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1244" height="278" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1575974080693" />
+    <state width="1244" height="278" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1576147427752" />
     <state x="795" y="366" width="386" height="373" key="NewPhpClassDialog" timestamp="1575908968023">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
@@ -288,10 +296,10 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="588" y="288" width="800" height="528" key="Vcs.Push.Dialog.v2/67.27.1853.1053@67.27.1853.1053" timestamp="1575736215976" />
-    <state x="644" y="378" key="com.intellij.ide.util.TipDialog" timestamp="1575973990646">
+    <state x="644" y="378" key="com.intellij.ide.util.TipDialog" timestamp="1576146787254">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="644" y="378" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1575973990646" />
+    <state x="644" y="378" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1576146787254" />
     <state x="637" y="288" width="713" height="528" key="find.popup" timestamp="1575734125165">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>

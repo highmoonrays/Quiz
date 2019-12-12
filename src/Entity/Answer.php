@@ -29,7 +29,7 @@ class Answer
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $true_or_not;
+    private $true_or_not = false;
 
     public function getId(): ?int
     {

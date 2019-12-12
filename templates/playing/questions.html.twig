@@ -3,15 +3,8 @@
 {% block title %}Play!{% endblock %}
 
 {% block body %}
-    <h1>Quiz starts</h1>
-
-
-
-    <question from questions>
-        question.name
-        question.text
-        question.answers
-        <answer from answers>
-            answer
-            checkbox
+        {{ form_start(form) }}
+        {{ form_row(form.question) }}
+        {{ form_end(form) }}
+        <input type = "submit" name = "submit" value = "Отправить">
 {% endblock %}
