@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Boolean;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\QuizRepository")
@@ -72,7 +73,7 @@ class Quiz
         return $this;
     }
 
-    public function getStatus(): ?string
+    public function getStatus(): ?bool
     {
         return $this->status;
     }
@@ -186,4 +187,5 @@ class Quiz
     {
         $this->usersNumber = $usersNumber;
     }
+
 }

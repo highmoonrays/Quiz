@@ -62,10 +62,6 @@ class QuestionController extends AbstractController
                 $this->addFlash('answers', 'Must be one right answer!');
         }
         return $this->render('question/new.html.twig', [
-//            'question' => $question,
-//            'answer1' => $answer1,
-//            'answer2' => $answer2,
-//            'answer3' => $answer3,
             'form' => $form->createView(),
         ]);
     }

@@ -137,26 +137,37 @@ class QuizController extends AbstractController
     public function create_question(Request $request, Quiz $quiz, QuestionRepository $questionRepository): Response
     {
         $question = new Question();
-        $answer= new Answer();
-        $form = $this->createForm(AnswersQuestionType::class, ['question' => $question, 'answer' => $answer]);
+        $answer1= new Answer();
+        $answer2= new Answer();
+        $answer3= new Answer();
+        $form = $this->createForm(AnswersQuestionType::class, ['question' => $question, 'answer1' => $answer1, 'answer2' => $answer2, 'answer3' => $answer3]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $answer->setQuestion($question);
+            $answer1->setQuestion($question);
+            $answer2->setQuestion($question);
+            $answer3->setQuestion($question);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($question);
-            $entityManager->persist($answer);
-            $entityManager->flush();
-
-            return $this->render('quiz/edit_quiz_questions_show.html.twig', [
-                'questions' => $questionRepository->findAll(),
-                'quiz' => $quiz,
-            ]);
+            $entityManager->persist($answer1);
+            $entityManager->persist($answer2);
+            $entityManager->persist($answer3);
+            //checking count of right answers. must be only one
+            $array = [];
+            $array[1] = $answer1->getTrueOrNot();
+            $array[2] = $answer2->getTrueOrNot();
+            $array[3] = $answer3->getTrueOrNot();
+            if (array_sum($array) == 1) {
+                $entityManager->flush();
+                return $this->render('quiz/edit_quiz_questions_show.html.twig', [
+                    'questions' => $questionRepository->findAll(),
+                    'quiz' => $quiz,
+                ]);
+            }
+            else
+                $this->addFlash('answers', 'Must be one right answer!');
         }
-
         return $this->render('quiz/edit_quiz_question_create.html.twig', [
             'quiz' => $quiz,
-            'question' => $question,
-            'answer' => $answer,
             'form' => $form->createView(),
         ]);
     }
