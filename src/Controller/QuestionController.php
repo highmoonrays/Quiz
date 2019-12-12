@@ -49,21 +49,23 @@ class QuestionController extends AbstractController
             $entityManager->persist($answer1);
             $entityManager->persist($answer2);
             $entityManager->persist($answer3);
-//            $sort_array = $question->getAnswers()->toArray();
-//            $answers = ksort($sort_array, 'true_or_not');
-//            if (array_sum() == 1){
-//                $entityManager->flush();
-//                return $this->redirectToRoute('question_index');
-//            }
-            dump($question);
-            dump($question->getAnswers()->toArray());
-            die();
+            //checking count of right answers. must be only one
+            $array = [];
+            $array[1] = $answer1->getTrueOrNot();
+            $array[2] = $answer2->getTrueOrNot();
+            $array[3] = $answer3->getTrueOrNot();
+            if (array_sum($array) == 1) {
+                $entityManager->flush();
+                return $this->redirectToRoute('question_index');
+            }
+            else
+                $this->addFlash('answers', 'Must be one right answer!');
         }
         return $this->render('question/new.html.twig', [
-            'question' => $question,
-            'answer1' => $answer1,
-            'answer2' => $answer2,
-            'answer3' => $answer3,
+//            'question' => $question,
+//            'answer1' => $answer1,
+//            'answer2' => $answer2,
+//            'answer3' => $answer3,
             'form' => $form->createView(),
         ]);
     }

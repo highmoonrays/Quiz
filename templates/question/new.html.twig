@@ -5,6 +5,11 @@
 {% block body %}
     <h1>Create new Question</h1>
 
+    {% for message in app.flashes('answers') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
     {{ include('question/_form.html.twig') }}
 
 

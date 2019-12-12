@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 namespace App\Form;
 use App\Entity\Question;
 use Symfony\Component\Form\AbstractType;
