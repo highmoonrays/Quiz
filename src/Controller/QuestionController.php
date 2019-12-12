@@ -70,15 +70,20 @@ class QuestionController extends AbstractController
      */
     public function show(Question $question): Response
     {
+        $answers = $question->getAnswers()->toArray();
         return $this->render('question/show.html.twig', [
+            'answers' => $answers,
             'question' => $question,
         ]);
     }
 
     /**
      * @Route("/{id}/edit", name="question_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param Question $question
+     * @return Response
      */
-    public function edit(Request $request, Question $question): Response
+    public function edit(Request $request, Question $question,QuestionRepository $questionRepository): Response
     {
         $answers = $question->getAnswers();
         $answer1 = $answers[0];
@@ -89,8 +94,17 @@ class QuestionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($question);
-            $entityManager->flush();
-            return $this->redirectToRoute('question_index');
+            //checking count of right answers. must be only one
+            $array = [];
+            $array[1] = $answer1->getTrueOrNot();
+            $array[2] = $answer2->getTrueOrNot();
+            $array[3] = $answer3->getTrueOrNot();
+            if (array_sum($array) == 1) {
+                $entityManager->flush();
+                $this->addFlash('success', 'Successfully edited!');
+            }
+            else
+                $this->addFlash('answers', 'Must be one right answer!');
         }
         return $this->render('question/edit.html.twig', [
             'question' => $question,

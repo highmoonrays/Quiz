@@ -21,7 +21,26 @@
             </tr>
         </tbody>
     </table>
+    <h1>Answers</h1>
 
+    {% for answer in answers %}
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ answer.id }}</td>
+        </tr>
+        <tr>
+            <th>Answer text</th>
+            <td>{{ answer.answerText }}</td>
+        </tr>
+        <tr>
+            <th>True or Not</th>
+            <td>{{ answer.trueOrNot ? 'Yes' : 'No'  }}</td>
+        </tr>
+        </tbody>
+    </table>
+    {% endfor %}
     <a href="{{ path('question_index') }}">back to list</a>
 
     <a href="{{ path('question_edit', {'id': question.id}) }}">edit</a>

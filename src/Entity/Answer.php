@@ -19,7 +19,7 @@ class Answer
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $answer_text;
+    private $answerText;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Question", inversedBy="answers")
@@ -29,7 +29,7 @@ class Answer
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $true_or_not;
+    private $trueOrNot;
 
     public function getId(): ?int
     {
@@ -38,12 +38,12 @@ class Answer
 
     public function getAnswerText(): ?string
     {
-        return $this->answer_text;
+        return $this->answerText;
     }
 
-    public function setAnswerText(string $answer_text): self
+    public function setAnswerText(string $answerText): self
     {
-        $this->answer_text = $answer_text;
+        $this->answerText = $answerText;
 
         return $this;
     }
@@ -62,12 +62,12 @@ class Answer
 
     public function getTrueOrNot(): ?bool
     {
-        return $this->true_or_not;
+        return $this->trueOrNot;
     }
 
-    public function setTrueOrNot(bool $true_or_not): self
+    public function setTrueOrNot(bool $trueOrNot): self
     {
-        $this->true_or_not = $true_or_not;
+        $this->trueOrNot = $trueOrNot;
 
         return $this;
     }

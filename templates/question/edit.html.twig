@@ -5,6 +5,16 @@
 {% block body %}
     <h1>Edit Question</h1>
 
+    {% for message in app.flashes('answers') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+    {% endfor %}
     {{ include('question/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('question_index') }}">back to list</a>
