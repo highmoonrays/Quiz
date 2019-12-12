@@ -10,7 +10,7 @@ class QuestionType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('question_text')
+            ->add('questionText')
         ;
     }
     public function configureOptions(OptionsResolver $resolver)

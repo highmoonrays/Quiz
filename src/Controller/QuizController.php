@@ -61,8 +61,10 @@ class QuizController extends AbstractController
      */
     public function show(Quiz $quiz): Response
     {
+        $questions = $quiz->getQuestions();
         return $this->render('quiz/show.html.twig', [
             'quiz' => $quiz,
+            'questions' => $questions,
         ]);
     }
 
@@ -105,7 +107,7 @@ class QuizController extends AbstractController
      * @param QuestionRepository $questionRepository
      * @return Response
      */
-    public function show_questions(QuestionRepository $questionRepository, Quiz $quiz): Response
+    public function show_all_questions(QuestionRepository $questionRepository, Quiz $quiz): Response
     {
         return $this->render('quiz/edit_quiz_questions_show.html.twig', [
             'questions' => $questionRepository->findAll(),

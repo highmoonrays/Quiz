@@ -8,7 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\QuestionRepository")
- * @
  */
 class Question
 {
@@ -27,7 +26,7 @@ class Question
     /**
      * @ORM\Column(type="string", length=1024)
      */
-    private $question_text;
+    private $questionText;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Quiz", inversedBy="questions")
@@ -64,12 +63,12 @@ class Question
 
     public function getQuestionText(): ?string
     {
-        return $this->question_text;
+        return $this->questionText;
     }
 
-    public function setQuestionText(string $question_text): self
+    public function setQuestionText(string $questionText): self
     {
-        $this->question_text = $question_text;
+        $this->questionText = $questionText;
 
         return $this;
     }

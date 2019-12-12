@@ -1001,7 +1001,6 @@
     <column id="255" parent="245" name="true_or_not">
       <Position>4</Position>
       <DataType>tinyint(1)|0s</DataType>
-      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <index id="256" parent="245" name="IDX_DADD4A251E27F6BF">

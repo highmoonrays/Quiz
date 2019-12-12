@@ -5,27 +5,48 @@
 {% block body %}
     <h1>Quiz</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ quiz.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ quiz.name }}</td>
-            </tr>
-            <tr>
-                <th>Number of users</th>
-                <td>{{ quiz.usersNumber }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ quiz.status ? 'Yes' : 'No' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
+<table class="table">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Number of users</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ quiz.id }}</td>
+            <td>{{ quiz.name }}</td>
+            <td>{{ quiz.usersNumber }}</td>
+            <td>{{ quiz.status ? 'Yes' : 'No' }}</td>
+        </tr>
+    </tbody>
+</table>
+    <h1>Questions</h1>
+<table class="table">
+    {% for question in questions %}
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Question name</th>
+        <th>Question text</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>{{ question.id }}</td>
+        <td>{{ question.name }}</td>
+        <td>{{ question.questionText }}</td>
+        <th>
+        <a href="{{ path('question_show', {'id': question.id}) }}">show</a>
+        <a href="{{ path('question_edit', {'id': question.id}) }}">edit</a>
+        </th>
+    </tr>
+    </tbody>
+    {% endfor %}
+</table>
     <a href="{{ path('quiz_index') }}">back to list</a>
 
     <a href="{{ path('quiz_edit', {'id': quiz.id}) }}">edit</a>

@@ -3,11 +3,9 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Answer;
-use App\Entity\Question;
 use App\Form\AnswersQuestionType;
-use App\Form\QuestionType;
+use App\Entity\Question;
 use App\Repository\QuestionRepository;
-use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -62,7 +60,18 @@ class QuestionController extends AbstractController
                 $this->addFlash('answers', 'Must be one right answer!');
         }
         return $this->render('question/new.html.twig', [
+            'question' => $question,
             'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}", name="question_show", methods={"GET"})
+     */
+    public function show(Question $question): Response
+    {
+        return $this->render('question/show.html.twig', [
+            'question' => $question,
         ]);
     }
 
@@ -71,15 +80,18 @@ class QuestionController extends AbstractController
      */
     public function edit(Request $request, Question $question): Response
     {
-        $form = $this->createForm(QuestionType::class, $question);
+        $answers = $question->getAnswers();
+        $answer1 = $answers[0];
+        $answer2 = $answers[1];
+        $answer3 = $answers[2];
+        $form = $this->createForm(AnswersQuestionType::class,['question' => $question, 'answer1' => $answer1, 'answer2' => $answer2, 'answer3' => $answer3]);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($question);
+            $entityManager->flush();
             return $this->redirectToRoute('question_index');
         }
-
         return $this->render('question/edit.html.twig', [
             'question' => $question,
             'form' => $form->createView(),
