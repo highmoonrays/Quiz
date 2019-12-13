@@ -1,9 +1,10 @@
 <?php
-
+declare(strict_types=1);
 namespace App\Form;
 
 use App\Entity\Answer;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,7 +14,9 @@ class AnswerType extends AbstractType
     {
         $builder
             ->add('answer_text')
-            ->add('true_or_not')
+            ->add('true_or_not', CheckboxType::class, [
+                'required' => false,
+            ])
         ;
     }
 

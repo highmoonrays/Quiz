@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Question{% endblock %}
+
+{% block body %}
+    <h1>Edit Question</h1>
+
+    {% for message in app.flashes('answers') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {{ include('quiz/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('quiz_show', {'id': quiz.id}) }}">back to Quiz</a>
+
+    {{ include('question/_delete_form.html.twig') }}
+{% endblock %}

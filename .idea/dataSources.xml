@@ -7,5 +7,11 @@
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/Quiz</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="Quiz@localhost [2]" uuid="9764fbda-0fc9-4038-b815-d4f527b6aa16">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/Quiz</jdbc-url>
+    </data-source>
   </component>
 </project>

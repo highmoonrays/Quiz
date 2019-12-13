@@ -173,5 +173,55 @@ class QuizController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+    /**
+     * @Route("/{quiz_id}/{id}/edit", name="edit_quiz_question_edit", methods={"GET","POST"})
+     * @Entity("quiz", expr="repository.find(quiz_id)")
+     * @param Request $request
+     * @param Question $question
+     * @return Response
+     */
+    public function edit_question(Request $request, Question $question, Quiz $quiz): Response
+    {
+        $answers = $question->getAnswers();
+        $answer1 = $answers[0];
+        $answer2 = $answers[1];
+        $answer3 = $answers[2];
+        $form = $this->createForm(AnswersQuestionType::class,['question' => $question, 'answer1' => $answer1, 'answer2' => $answer2, 'answer3' => $answer3]);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($question);
+            //checking count of right answers. must be only one
+            $array = [];
+            $array[1] = $answer1->getTrueOrNot();
+            $array[2] = $answer2->getTrueOrNot();
+            $array[3] = $answer3->getTrueOrNot();
+            if (array_sum($array) == 1) {
+                $entityManager->flush();
+                $this->addFlash('success', 'Successfully edited!');
+            }
+            else
+                $this->addFlash('answers', 'Must be one right answer!');
+        }
+        return $this->render('quiz/edit_quiz_question_edit.html.twig', [
+            'quiz' => $quiz,
+            'question' => $question,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{quiz_id}/{id}", name="edit_quiz_question_show", methods={"GET"})
+     * @Entity("quiz", expr="repository.find(quiz_id)")
+     */
+    public function show_question(Question $question, Quiz $quiz): Response
+    {
+        $answers = $question->getAnswers()->toArray();
+        return $this->render('quiz/edit_quiz_question_show.html.twig', [
+            'quiz' => $quiz,
+            'answers' => $answers,
+            'question' => $question,
+        ]);
+    }
 
 }

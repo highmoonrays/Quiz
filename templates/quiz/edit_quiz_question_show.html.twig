@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Question{% endblock %}
+
+{% block body %}
+    <h1>Question</h1>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ question.id }}</td>
+        </tr>
+        <tr>
+            <th>Name</th>
+            <td>{{ question.name }}</td>
+        </tr>
+        <tr>
+            <th>Question_text</th>
+            <td>{{ question.questionText }}</td>
+        </tr>
+        </tbody>
+    </table>
+    <h1>Answers</h1>
+
+    {% for answer in answers %}
+        <table class="table">
+            <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ answer.id }}</td>
+            </tr>
+            <tr>
+                <th>Answer text</th>
+                <td>{{ answer.answerText }}</td>
+            </tr>
+            <tr>
+                <th>True or Not</th>
+                <td>{{ answer.trueOrNot ? 'Yes' : 'No'  }}</td>
+            </tr>
+            </tbody>
+        </table>
+    {% endfor %}
+    <a href="{{ path('edit_quiz_question_edit', {'quiz_id': quiz.id, 'id': question.id}) }}">edit question</a>
+    <a href="{{ path('quiz_show', {'id': quiz.id}) }}">back to Quiz</a>
+    {{ include('question/_delete_form.html.twig') }}
+{% endblock %}
