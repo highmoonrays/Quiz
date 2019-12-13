@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\User;
@@ -47,11 +47,12 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->render('security/login.html.twig', [
-                "error" => Null,
-                "last_username" => Null,
-
-            ]);
+            return $this->redirectToRoute('app_login');
+//            return $this->render('security/login.html.twig', [
+//                "error" => Null,
+//                "last_username" => Null,
+//
+//            ]);
 
         }
 

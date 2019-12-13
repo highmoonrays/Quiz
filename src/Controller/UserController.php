@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\User;
@@ -49,7 +49,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="user_show", methods={"GET"})
+     * @Route("/show/{id}", name="user_show", methods={"GET"})
      */
     public function show(User $user): Response
     {
@@ -90,5 +90,23 @@ class UserController extends AbstractController
         }
 
         return $this->redirectToRoute('user_index');
+    }
+
+    /**
+     * @Route("/show/change/{id}", name="user_change_role", methods={"GET","POST"})
+     */
+    public function change_role(Request $request, User $user, UserRepository $userRepository): Response
+    {
+        if ($user->getRoles() == [])
+            $user->setRoles(['ROLE_ADMIN']);
+        elseif ($user->getRoles() == 'ROLE_ADMIN')
+            $user->setRoles(['ROLE_USER']);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('user_index', [
+            'users' => $userRepository->findAll(),
+        ]);
     }
 }

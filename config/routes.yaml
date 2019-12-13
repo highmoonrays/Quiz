@@ -1,6 +1,3 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
-success_registration:
-  path: /administrator
-  controller: App\Controller\MainController::success_registration

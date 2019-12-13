@@ -10,10 +10,8 @@ class HelloController extends AbstractController
     /**
      * @Route("/", name="hello_page")
      */
-    public function index()
+    public function hello()
     {
-        return $this->render('hello/index.html.twig', [
-            'controller_name' => 'HelloController',
-        ]);
+        return $this->render('hello/hello.html.twig');
     }
 }

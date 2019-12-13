@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Answer;
@@ -14,12 +14,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 /**
  * @Route("/quiz")
  * @method getId(Request $request)
  * @method addQuiz($quiz)
  * @method addUser(Request $request)
+ * @IsGranted("ROLE_ADMIN")
  */
 class QuizController extends AbstractController
 {
