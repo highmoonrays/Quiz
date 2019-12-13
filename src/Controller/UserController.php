@@ -97,9 +97,9 @@ class UserController extends AbstractController
      */
     public function change_role(Request $request, User $user, UserRepository $userRepository): Response
     {
-        if ($user->getRoles() == [])
+        if($user->getRoles() == ['ROLE_USER'])
             $user->setRoles(['ROLE_ADMIN']);
-        elseif ($user->getRoles() == 'ROLE_ADMIN')
+        elseif ($user->getRoles() == ['ROLE_ADMIN', 'ROLE_USER'])
             $user->setRoles(['ROLE_USER']);
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($user);
