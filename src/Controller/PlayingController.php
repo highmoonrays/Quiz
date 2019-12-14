@@ -5,13 +5,19 @@ namespace App\Controller;
 use App\Entity\Quiz;
 use App\Entity\Result;
 use App\Form\AnswersQuestionType;
+use App\Form\AnswerType;
+use App\Form\ForAnswersType;
 use App\Repository\AnswerRepository;
 use App\Repository\QuestionRepository;
+use App\Repository\ResultRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+
 
 /**
  * Class PlayingController
@@ -29,38 +35,77 @@ class PlayingController extends AbstractController
      */
     public function start(Quiz $quiz,Request $request): Response
     {
-        foreach ($quiz->getUsers() as $value)
-            if ($value == $this->getUser()) {
-                return $this->redirectToRoute("playing_quiz_questions", ['id' => $quiz->getId()]);
+        foreach ($quiz->getUsers() as $user)
+            if ($user == $this->getUser()) {
+                $result = $this->getDoctrine()
+                    ->getRepository(Result::class)
+                    ->findOneBy(array('user' => $user, 'quiz' => $quiz));
+                return $this->redirectToRoute('playing_quiz_questions', ['id' => $result->getId()]);
             }
-        $quiz->addUser($this->getUser());
-        $result = new Result();
-        $result->setUser($this->getUser());
-        $result->setQuiz($quiz);
-        $quiz->setUsersNumber($quiz->getUsersNumber() + 1);
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($result);
-        $entityManager->persist($quiz);
-        $entityManager->flush();
-        return $this->redirectToRoute('playing_quiz_questions', ['id' => $quiz->getId()]);
+            $quiz->addUser($this->getUser());
+            $result = new Result();
+            $result->setUser($this->getUser());
+            $result->setQuiz($quiz);
+            $quiz->setUsersNumber($quiz->getUsersNumber() + 1);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($result);
+            $entityManager->persist($quiz);
+            $entityManager->flush();
+        return $this->redirectToRoute('playing_quiz_questions', ['id' => $result->getId()]);
     }
 
     /**
      * @Route("/{id}/playing/quiestions", name="playing_quiz_questions")
-     * @param Quiz $quiz
-     * @param QuestionRepository $questionRepository
-     * @param AnswerRepository $answerRepository
-     * @param $request
+     * @Entity("result", expr="repository.find(id)")
      * @return Response
      */
-    public function playing(Quiz $quiz, QuestionRepository $questionRepository, AnswerRepository $answerRepository,Request $request): Response
+    public function playing( Result $result, Request $request): Response
     {
-        $questions = $quiz->getQuestions()->toArray();
-        $form = $this->createForm(AnswersQuestionType::class, $questions);
+        $questions = $result->getQuiz()->getQuestions()->toArray();
+        if($result->getQuestions()->toArray() == []) {
+            $question = $questions[0];
+            $answers = $question->getAnswers();
+        }
+        else{
+            $array = $result->getQuestions()->toArray();
+            $number_of_answered_questions = count($array);
+            $question = $questions[$number_of_answered_questions];
+            $answers = $question->getAnswers();
+        }
+        $form = $this->createFormBuilder()
+            ->add('true_or_not', CheckboxType::class, [
+                'required' => false,
+            ])
+            ->getForm();
         $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid())
+            $result->addQuestion($question);
+            if ($answers->getTrueOrNot() == $question->getAnswers()->getTrueOrNot()){
+                $result->setRightAnswers($result->getRightAnswers() + 1);
+                $this->addFlash('right', 'Right Answer!');
+            }
+            else
+                $this->addFlash('false', 'Your answer is not right');
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($result);
+            $entityManager->flush();
 
         return $this->render('playing/questions.html.twig', [
+            'question' => $question,
+            'answers' => $answers,
             'form' => $form->createView(),
         ]);
     }
+
+//    /**
+//     * @Route("/{id}/", name="before_play")
+//     * @Entity("result", expr="repository.find(id)")
+//     * @return Response
+//     */
+//    public function before_start(Result $result, Request $request): Response
+//    {
+//        return $this->render('playing/quiz_info.html.twig', [
+//            'result' => $result->getId(),
+//        ]);
+//    }
 }

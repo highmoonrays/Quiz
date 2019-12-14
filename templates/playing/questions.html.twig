@@ -3,8 +3,41 @@
 {% block title %}Play!{% endblock %}
 
 {% block body %}
-        {{ form_start(form) }}
-        {{ form_row(form.question) }}
-        {{ form_end(form) }}
-        <input type = "submit" name = "submit" value = "Отправить">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Question</th>
+        </tr>
+        </thead>
+        <tbody>
+{#        {% for question in questions %}#}
+            <tr>
+                <td>{{ question.id }}</td>
+                <td>{{ question.name }}</td>
+                <td>{{ question.questionText }}</td>
+            </tr>
+{#        {% else %}#}
+{#        {% endfor %}#}
+        </tbody>
+    </table>
+    {% for answer in answers %}
+        <table class="table">
+            <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ answer.id }}</td>
+            </tr>
+            <tr>
+                <th>Answer text</th>
+                <td>{{ answer.answerText }}</td>
+            </tr>
+            <tr>
+                <th>True or Not</th>
+                <td>{{ include('playing/_form.html.twig', {'button_label': 'submit answer'}) }}</td>
+            </tr>
+            </tbody>
+        </table>
+    {% endfor %}
 {% endblock %}
