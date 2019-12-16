@@ -106,29 +106,31 @@ class PlayingController extends AbstractController
 
 
         if ($form->get('submit')->isClicked()) {
+//            $array_with_user_answers = [];
             if(!isset($_POST['user_answer'])) {
                 $this->addFlash('no_answers', 'Choose one answer!');
             }
             else
-                $user_answers = $_POST['user_answer'];
-//                if (count($user_answers) > 1) {
-//                    $this->addFlash('too much', 'You can choose only one answer!');
-//                }
-//                else
-
-
+                $user_answers = implode(', ', $_POST['user_answer']);
+//                foreach ($user_answers as $user_answer)
+//                    array_push($array_with_user_answers, $user_answer);
                     $result->addQuestion($question);
-                    $array = [];
+//                    $array = [];
                     $other_array = [];
-                    foreach($answers as $answer)
-                    if($this->IsChecked('$user_answer', 'answer')) {
-                        array_push($array, 'true');
-                    }
-                    else
-                        array_push($array, 'false');
-                    foreach ($answers as $answer)
-                        array_push($other_array, $answer->getTrueOrNot());
-                    if($array == $other_array){
+//                    if($this->IsChecked('$user_answer', 'answer')) {
+//                        array_push($array, 'true');
+//                    }
+//                    else
+//                        array_push($array, 'false');
+                    $answer1 = $answers[0];
+                    $answer2 = $answers[1];
+                    $answer3 = $answers[2];
+
+                    $array_with_quiz_answers[0] = $answer1->getTrueOrNot();
+                    $array_with_quiz_answers[1] = $answer2->getTrueOrNot();
+                    $array_with_quiz_answers[2] = $answer3->getTrueOrNot();
+
+                if( $user_answers === $array_with_quiz_answers){
                         $result->setRightAnswers($result->getRightAnswers() + 1);
                         $this->addFlash('right', 'Right Answer!');
                     }
