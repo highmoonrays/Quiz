@@ -3,6 +3,26 @@
 {% block title %}Play!{% endblock %}
 
 {% block body %}
+    {% for message in app.flashes('right') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('false') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('no_answers') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('too much') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
     <table class="table">
         <thead>
         <tr>
@@ -32,9 +52,32 @@
             </tr>
             <tr>
                 <th>True or Not</th>
+                <td>
+                    <form method="post">
+                        <label><input type="checkbox" name="user_answer[]" value="answer"></label>
+                    </form>
+                </td>
             </tr>
             </tbody>
         </table>
     {% endfor %}
-    <td>{{ include('playing/_form.html.twig', {'button_label': 'submit answer'}) }}</td>
+    <td>{{ include('playing/_form.html.twig') }}</td>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        const submit = document.getElementById('form_submit');
+        submit.onclick((event) => {
+            event.preventDefault();
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach((item) => {
+                alert(item.checked);
+            })
+
+            const test = checkboxes.map(item => {
+                return item.checked;
+            })
+            debugger;
+        });
+    </script>
 {% endblock %}

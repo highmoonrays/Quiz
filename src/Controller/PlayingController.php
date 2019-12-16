@@ -59,47 +59,89 @@ class PlayingController extends AbstractController
         ]);
     }
 
+    private function IsChecked($chkname,$value)
+    {
+        if(!empty($_POST[$chkname]))
+        {
+            foreach($_POST[$chkname] as $chkval)
+            {
+                if($chkval == $value)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
     /**
-     * @Route("/{id}/playing/quiestions", name="playing_quiz_questions")
+     * @param Result $result
+     * @param Request $request
+     * @return Response
+     * @Route("/{id}/playing/quiestions", name="playing_quiz_questions", methods={"GET", "POST"})
      * @Entity("result", expr="repository.find(id)")
      * @return Response
      */
     public function playing( Result $result, Request $request): Response
     {
-        $array = $result->getQuestions()->toArray();
-        $number_of_answered_questions = count($array);
+        $answered_questions = $result->getQuestions()->toArray();
+        $number_of_answered_questions = count($answered_questions);
         $questions = $result->getQuiz()->getQuestions()->toArray();
-        if($number_of_answered_questions == 0) {
+        if ($number_of_answered_questions == 0) {
             $question = $questions[0];
             $answers = $question->getAnswers();
-        }
-        elseif($number_of_answered_questions == count($questions)){
+        } // top of players here
+        elseif ($number_of_answered_questions == count($questions)) {
             return $this->redirectToRoute('finished_quiz');
-        }
-        else  {
+        } else {
             $question = $questions[$number_of_answered_questions];
             $answers = $question->getAnswers();
         }
+
         $form = $this->createFormBuilder()
             ->add('submit', SubmitType::class)
             ->getForm();
         $form->handleRequest($request);
-        if ($form->get('submit')->isClicked()) {
-            $result->addQuestion($question);
-//            if ($answers->getTrueOrNot() == $question->getAnswers()->getTrueOrNot()){
-//                $result->setRightAnswers($result->getRightAnswers() + 1);
-//                $this->addFlash('right', 'Right Answer!');
-//            }
-//            else
-//                $this->addFlash('false', 'Your answer is not right');
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($result);
-            $entityManager->flush();
-            return $this->redirectToRoute('playing_quiz_questions', [
-                'id' => $result->getId(),
-            ]);
-        }
 
+
+        if ($form->get('submit')->isClicked()) {
+            if(!isset($_POST['user_answer'])) {
+                $this->addFlash('no_answers', 'Choose one answer!');
+            }
+            else
+                $user_answers = $_POST['user_answer'];
+//                if (count($user_answers) > 1) {
+//                    $this->addFlash('too much', 'You can choose only one answer!');
+//                }
+//                else
+
+
+                    $result->addQuestion($question);
+                    $array = [];
+                    $other_array = [];
+                    foreach($answers as $answer)
+                    if($this->IsChecked('$user_answer', 'answer')) {
+                        array_push($array, 'true');
+                    }
+                    else
+                        array_push($array, 'false');
+                    foreach ($answers as $answer)
+                        array_push($other_array, $answer->getTrueOrNot());
+                    if($array == $other_array){
+                        $result->setRightAnswers($result->getRightAnswers() + 1);
+                        $this->addFlash('right', 'Right Answer!');
+                    }
+                    else
+                        $this->addFlash('false', 'Your answer is not right');
+
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->persist($result);
+                    $entityManager->flush();
+                    return $this->redirectToRoute('playing_quiz_questions', [
+                        'id' => $result->getId(),
+                    ]);
+        }
         return $this->render('playing/questions.html.twig', [
             'question' => $question,
             'answers' => $answers,
@@ -118,4 +160,8 @@ class PlayingController extends AbstractController
 //            'result' => $result
 //        ]);
 //    }
+
+
 }
+
+
