@@ -37,7 +37,7 @@ class Result
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $rightAnswers;
+    private $rightAnswers = 0;
 
 
     public function __construct()

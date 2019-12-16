@@ -12,6 +12,7 @@ use App\Repository\QuestionRepository;
 use App\Repository\ResultRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -40,7 +41,9 @@ class PlayingController extends AbstractController
                 $result = $this->getDoctrine()
                     ->getRepository(Result::class)
                     ->findOneBy(array('user' => $user, 'quiz' => $quiz));
-                return $this->redirectToRoute('playing_quiz_questions', ['id' => $result->getId()]);
+                return $this->redirectToRoute('playing_quiz_questions', [
+                    'id' => $result->getId(),
+                ]);
             }
             $quiz->addUser($this->getUser());
             $result = new Result();
@@ -51,7 +54,9 @@ class PlayingController extends AbstractController
             $entityManager->persist($result);
             $entityManager->persist($quiz);
             $entityManager->flush();
-        return $this->redirectToRoute('playing_quiz_questions', ['id' => $result->getId()]);
+        return $this->redirectToRoute('playing_quiz_questions', [
+            'id' => $result->getId(),
+        ]);
     }
 
     /**
@@ -61,34 +66,39 @@ class PlayingController extends AbstractController
      */
     public function playing( Result $result, Request $request): Response
     {
+        $array = $result->getQuestions()->toArray();
+        $number_of_answered_questions = count($array);
         $questions = $result->getQuiz()->getQuestions()->toArray();
-        if($result->getQuestions()->toArray() == []) {
+        if($number_of_answered_questions == 0) {
             $question = $questions[0];
             $answers = $question->getAnswers();
         }
-        else{
-            $array = $result->getQuestions()->toArray();
-            $number_of_answered_questions = count($array);
+        elseif($number_of_answered_questions == count($questions)){
+            return $this->redirectToRoute('finished_quiz');
+        }
+        else  {
             $question = $questions[$number_of_answered_questions];
             $answers = $question->getAnswers();
         }
         $form = $this->createFormBuilder()
-            ->add('true_or_not', CheckboxType::class, [
-                'required' => false,
-            ])
+            ->add('submit', SubmitType::class)
             ->getForm();
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid())
+        if ($form->get('submit')->isClicked()) {
             $result->addQuestion($question);
-            if ($answers->getTrueOrNot() == $question->getAnswers()->getTrueOrNot()){
-                $result->setRightAnswers($result->getRightAnswers() + 1);
-                $this->addFlash('right', 'Right Answer!');
-            }
-            else
-                $this->addFlash('false', 'Your answer is not right');
+//            if ($answers->getTrueOrNot() == $question->getAnswers()->getTrueOrNot()){
+//                $result->setRightAnswers($result->getRightAnswers() + 1);
+//                $this->addFlash('right', 'Right Answer!');
+//            }
+//            else
+//                $this->addFlash('false', 'Your answer is not right');
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($result);
             $entityManager->flush();
+            return $this->redirectToRoute('playing_quiz_questions', [
+                'id' => $result->getId(),
+            ]);
+        }
 
         return $this->render('playing/questions.html.twig', [
             'question' => $question,
@@ -102,10 +112,10 @@ class PlayingController extends AbstractController
 //     * @Entity("result", expr="repository.find(id)")
 //     * @return Response
 //     */
-//    public function before_start(Result $result, Request $request): Response
+//    public function before_play(Result $result, Request $request): Response
 //    {
 //        return $this->render('playing/quiz_info.html.twig', [
-//            'result' => $result->getId(),
+//            'result' => $result
 //        ]);
 //    }
 }
