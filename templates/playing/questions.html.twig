@@ -55,29 +55,6 @@
     {% endfor %}
     <th>Choose Right Answer</th>
     <td>
-{#        <form action="{{ path('playing_quiz_questions', {'id': result.id}) }}" method="post">#}
-{#            <label><input type="radio" name="user_answer[]" value="answer1"></label>#}
-{#            <label><input type="radio" name="user_answer[]" value="answer2"></label>#}
-{#            <label><input type="radio" name="user_answer[]" value="answer3"></label>#}
-{#        </form>#}
     </td>
     <td>{{ include('playing/_form.html.twig') }}</td>
 {% endblock %}
-
-{#{% block javascripts %}#}
-{#    <script>#}
-{#        const submit = document.getElementById('form_submit');#}
-{#        submit.onclick((event) => {#}
-{#            event.preventDefault();#}
-{#            const checkboxes = document.querySelectorAll('input[type="checkbox"]');#}
-{#            checkboxes.forEach((item) => {#}
-{#                alert(item.checked);#}
-{#            })#}
-
-{#            const test = checkboxes.map(item => {#}
-{#                return item.checked;#}
-{#            })#}
-{#            debugger;#}
-{#        });#}
-{#    </script>#}
-{#{% endblock %}#}

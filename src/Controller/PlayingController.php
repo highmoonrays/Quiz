@@ -46,17 +46,15 @@ class PlayingController extends AbstractController
                     'id' => $result->getId(),
                 ]);
             }
-            else {
-                $quiz->addUser($this->getUser());
-                $result = new Result();
-                $result->setUser($this->getUser());
-                $result->setQuiz($quiz);
-                $quiz->setUsersNumber($quiz->getUsersNumber() + 1);
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($result);
-                $entityManager->persist($quiz);
-                $entityManager->flush();
-            }
+        $quiz->addUser($this->getUser());
+        $result = new Result();
+        $result->setUser($this->getUser());
+        $result->setQuiz($quiz);
+        $quiz->setUsersNumber($quiz->getUsersNumber() + 1);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($result);
+        $entityManager->persist($quiz);
+        $entityManager->flush();
         return $this->redirectToRoute('playing_quiz_questions', [
             'id' => $result->getId(),
         ]);
@@ -126,7 +124,6 @@ class PlayingController extends AbstractController
             'question' => $question,
             'answers' => $answers,
             'form' => $form->createView(),
-            'result' => $result,
         ]);
     }
 
