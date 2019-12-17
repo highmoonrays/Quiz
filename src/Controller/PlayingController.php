@@ -12,6 +12,7 @@ use App\Repository\QuestionRepository;
 use App\Repository\ResultRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,35 +46,21 @@ class PlayingController extends AbstractController
                     'id' => $result->getId(),
                 ]);
             }
-            $quiz->addUser($this->getUser());
-            $result = new Result();
-            $result->setUser($this->getUser());
-            $result->setQuiz($quiz);
-            $quiz->setUsersNumber($quiz->getUsersNumber() + 1);
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($result);
-            $entityManager->persist($quiz);
-            $entityManager->flush();
+            else {
+                $quiz->addUser($this->getUser());
+                $result = new Result();
+                $result->setUser($this->getUser());
+                $result->setQuiz($quiz);
+                $quiz->setUsersNumber($quiz->getUsersNumber() + 1);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($result);
+                $entityManager->persist($quiz);
+                $entityManager->flush();
+            }
         return $this->redirectToRoute('playing_quiz_questions', [
             'id' => $result->getId(),
         ]);
     }
-
-    private function IsChecked($chkname,$value)
-    {
-        if(!empty($_POST[$chkname]))
-        {
-            foreach($_POST[$chkname] as $chkval)
-            {
-                if($chkval == $value)
-                {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
 
     /**
      * @param Result $result
@@ -100,54 +87,46 @@ class PlayingController extends AbstractController
         }
 
         $form = $this->createFormBuilder()
+            ->add('answer1', CheckboxType::class, [
+                'required' => false,
+            ])
+            ->add('answer2', CheckboxType::class, [
+                'required' => false,
+            ])
+            ->add('answer3', CheckboxType::class, [
+                'required' => false,
+            ])
             ->add('submit', SubmitType::class)
             ->getForm();
         $form->handleRequest($request);
 
 
         if ($form->get('submit')->isClicked()) {
-//            $array_with_user_answers = [];
-            if(!isset($_POST['user_answer'])) {
-                $this->addFlash('no_answers', 'Choose one answer!');
-            }
-            else
-                $user_answers = implode(', ', $_POST['user_answer']);
-//                foreach ($user_answers as $user_answer)
-//                    array_push($array_with_user_answers, $user_answer);
-                    $result->addQuestion($question);
-//                    $array = [];
-                    $other_array = [];
-//                    if($this->IsChecked('$user_answer', 'answer')) {
-//                        array_push($array, 'true');
-//                    }
-//                    else
-//                        array_push($array, 'false');
-                    $answer1 = $answers[0];
-                    $answer2 = $answers[1];
-                    $answer3 = $answers[2];
+                $user_answers[0] = $form['answer1']->getData();
+                $user_answers[1] = $form['answer2']->getData();
+                $user_answers[2] = $form['answer3']->getData();
+                $array_with_quiz_answers[0] = $answers[0]->getTrueOrNot();
+                $array_with_quiz_answers[1] = $answers[1]->getTrueOrNot();
+                $array_with_quiz_answers[2] = $answers[2]->getTrueOrNot();
+                if ($user_answers === $array_with_quiz_answers) {
+                    $result->setRightAnswers($result->getRightAnswers() + 1);
+                    $this->addFlash('right', 'Right Answer!');
+                } else
+                    $this->addFlash('false', 'Your answer is not right');
 
-                    $array_with_quiz_answers[0] = $answer1->getTrueOrNot();
-                    $array_with_quiz_answers[1] = $answer2->getTrueOrNot();
-                    $array_with_quiz_answers[2] = $answer3->getTrueOrNot();
-
-                if( $user_answers === $array_with_quiz_answers){
-                        $result->setRightAnswers($result->getRightAnswers() + 1);
-                        $this->addFlash('right', 'Right Answer!');
-                    }
-                    else
-                        $this->addFlash('false', 'Your answer is not right');
-
-                    $entityManager = $this->getDoctrine()->getManager();
-                    $entityManager->persist($result);
-                    $entityManager->flush();
-                    return $this->redirectToRoute('playing_quiz_questions', [
-                        'id' => $result->getId(),
-                    ]);
+                $result->addQuestion($question);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($result);
+                $entityManager->flush();
+                return $this->redirectToRoute('playing_quiz_questions', [
+                    'id' => $result->getId(),
+                ]);
         }
         return $this->render('playing/questions.html.twig', [
             'question' => $question,
             'answers' => $answers,
             'form' => $form->createView(),
+            'result' => $result,
         ]);
     }
 
