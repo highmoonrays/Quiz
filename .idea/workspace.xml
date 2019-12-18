@@ -3,8 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="74fb5669-3723-4b1f-958f-6cb9483fcfa1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/PlayingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PlayingController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/playing/questions.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/playing/questions.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Quiz.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Quiz.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/playing/result_of_quiz.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/playing/result_of_quiz.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -234,7 +237,9 @@
       <workItem from="1576581793276" duration="9341000" />
       <workItem from="1576594632176" duration="18000" />
       <workItem from="1576599247741" duration="53000" />
-      <workItem from="1576663283232" duration="8011000" />
+      <workItem from="1576663283232" duration="8853000" />
+      <workItem from="1576682857977" duration="4121000" />
+      <workItem from="1576687402404" duration="3593000" />
     </task>
     <servers />
   </component>
@@ -262,22 +267,22 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="776" y="310" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.1053@67.27.1853.1053" timestamp="1576594647516" />
-    <state width="1244" height="278" key="GridCell.Tab.0.bottom" timestamp="1576147427752">
+    <state width="1244" height="278" key="GridCell.Tab.0.bottom" timestamp="1576683337689">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1244" height="278" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1576147427752" />
-    <state width="1244" height="278" key="GridCell.Tab.0.center" timestamp="1576147427752">
+    <state width="1244" height="278" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1576683337689" />
+    <state width="1244" height="278" key="GridCell.Tab.0.center" timestamp="1576683337688">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1244" height="278" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1576147427752" />
-    <state width="1244" height="278" key="GridCell.Tab.0.left" timestamp="1576147427751">
+    <state width="1244" height="278" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1576683337688" />
+    <state width="1244" height="278" key="GridCell.Tab.0.left" timestamp="1576683337687">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1244" height="278" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1576147427751" />
-    <state width="1244" height="278" key="GridCell.Tab.0.right" timestamp="1576147427752">
+    <state width="1244" height="278" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1576683337687" />
+    <state width="1244" height="278" key="GridCell.Tab.0.right" timestamp="1576683337688">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1244" height="278" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1576147427752" />
+    <state width="1244" height="278" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1576683337688" />
     <state x="795" y="366" width="386" height="373" key="NewPhpClassDialog" timestamp="1575908968023">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
@@ -290,10 +295,10 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="872" y="449" width="367" height="230" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/67.27.1853.1053@67.27.1853.1053" timestamp="1576338944414" />
-    <state x="644" y="378" key="com.intellij.ide.util.TipDialog" timestamp="1576594631842">
+    <state x="644" y="378" key="com.intellij.ide.util.TipDialog" timestamp="1576687404774">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="644" y="378" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1576594631842" />
+    <state x="644" y="378" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1576687404774" />
     <state x="647" y="170" width="683" height="764" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1576495283003">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>

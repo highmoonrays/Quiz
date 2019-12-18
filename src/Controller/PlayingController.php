@@ -47,8 +47,6 @@ class PlayingController extends AbstractController
                 ]);
             }
         $quiz->addUser($this->getUser());
-        if(count($quiz->getUsers()->toArray()) == 1)
-            $quiz->setFirstPlace($this->getUser()->getId());
         $result = new Result();
         $result->setUser($this->getUser());
         $result->setQuiz($quiz);
@@ -140,43 +138,29 @@ class PlayingController extends AbstractController
      * @Entity("result", expr="repository.find(id)")
      * @return Response
      */
+
     public function finishQuiz(Result $result, Request $request): Response
     {
-        $place_counter = 0;
+
         $quiz = $result->getQuiz();
-        $firstPlaceResult = $this->getDoctrine()
-            ->getRepository(Result::class)
-            ->findOneBy(array('user' => $quiz->getFirstPlace(), 'quiz' => $quiz));
-        $secondPlaceResult = $this->getDoctrine()
-            ->getRepository(Result::class)
-            ->findOneBy(array('user' => $quiz->getSecondPlace(), 'quiz' => $quiz));
-        $thirdPlaceResult = $this->getDoctrine()
-            ->getRepository(Result::class)
-            ->findOneBy(array('user' => $quiz->getThirdPlace(), 'quiz' => $quiz));
+        $results = $quiz->getResults()->toArray();
+        usort($results, function ($result1, $result2){
+            if($result1->getRightAnswers() == $result2->getRightAnswers()){
+                return 0;
+            }
+            return ($result1->getRightAnswers() > $result2->getRightAnswers()) ? -1 : 1;
+        });
+//        $firstPlace = $results[0]->getUser();
+//        $secondPlace = $results[1]->getUser();
+//        $thirdPlace = $results[2]->getUser();
+        dump($results);
+        die();
 
-        if($result->getRightAnswers() > $firstPlaceResult->getRightAnswers())
-            $quiz->setFirstPlace($this->getUser()->getId());
-        else
-
-            if($quiz->getSecondPlace() == null)
-                $quiz->setSecondPlace($this->getUser()->getId());
-            else
-
-                if($result->getRightAnswers() > $secondPlaceResult->getRightAnswers())
-                    $quiz->setSecondPlace($this->getUser()->getId());
-                else
-
-                    if($quiz->getThirdPlace() == null)
-                        $quiz->setThirdPlace($this->getUser()->getId());
-                    else
-
-                        if($result->getRightAnswers() > $thirdPlaceResult->getRightAnswers())
-                            $quiz->setThirdPlace($this->getUser()->getId());
-
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($quiz);
-        $entityManager->flush();
-        return $this->render('playing/result_of_quiz.html.twig');
+        return $this->render('playing/result_of_quiz.html.twig', [
+//            'first' => $firstPlace,
+//            'second' => $secondPlace,
+//            'third' => $thirdPlace,
+        ]);
     }
 
 
