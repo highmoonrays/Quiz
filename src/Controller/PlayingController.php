@@ -47,6 +47,8 @@ class PlayingController extends AbstractController
                 ]);
             }
         $quiz->addUser($this->getUser());
+        if(count($quiz->getUsers()->toArray()) == 1)
+            $quiz->setFirstPlace($this->getUser()->getId());
         $result = new Result();
         $result->setUser($this->getUser());
         $result->setQuiz($quiz);
@@ -78,7 +80,9 @@ class PlayingController extends AbstractController
             $answers = $question->getAnswers();
         } // top of players here
         elseif ($number_of_answered_questions == count($questions)) {
-            return $this->redirectToRoute('finished_quiz');
+            return $this->redirectToRoute('finish_quiz', [
+                'id' => $result->getId(),
+            ]);
         } else {
             $question = $questions[$number_of_answered_questions];
             $answers = $question->getAnswers();
@@ -127,17 +131,49 @@ class PlayingController extends AbstractController
         ]);
     }
 
-//    /**
-//     * @Route("/{id}/", name="before_play")
-//     * @Entity("result", expr="repository.find(id)")
-//     * @return Response
-//     */
-//    public function before_play(Result $result, Request $request): Response
-//    {
-//        return $this->render('playing/quiz_info.html.twig', [
-//            'result' => $result
-//        ]);
-//    }
+    /**
+     * @Route("/{id}/finish", name="finish_quiz")
+     * @Entity("result", expr="repository.find(id)")
+     * @return Response
+     */
+    public function finishQuiz(Result $result, Request $request): Response
+    {
+        $place_counter = 0;
+        $quiz = $result->getQuiz();
+        $firstPlaceResult = $this->getDoctrine()
+            ->getRepository(Result::class)
+            ->findOneBy(array('user' => $quiz->getFirstPlace(), 'quiz' => $quiz));
+        $secondPlaceResult = $this->getDoctrine()
+            ->getRepository(Result::class)
+            ->findOneBy(array('user' => $quiz->getSecondPlace(), 'quiz' => $quiz));
+        $thirdPlaceResult = $this->getDoctrine()
+            ->getRepository(Result::class)
+            ->findOneBy(array('user' => $quiz->getThirdPlace(), 'quiz' => $quiz));
+
+        if($result->getRightAnswers() > $firstPlaceResult->getRightAnswers())
+            $quiz->setFirstPlace($this->getUser()->getId());
+        else
+
+            if($quiz->getSecondPlace() == null)
+                $quiz->setSecondPlace($this->getUser()->getId());
+            else
+
+                if($result->getRightAnswers() > $secondPlaceResult->getRightAnswers())
+                    $quiz->setSecondPlace($this->getUser()->getId());
+                else
+
+                    if($quiz->getThirdPlace() == null)
+                        $quiz->setThirdPlace($this->getUser()->getId());
+                    else
+
+                        if($result->getRightAnswers() > $thirdPlaceResult->getRightAnswers())
+                            $quiz->setThirdPlace($this->getUser()->getId());
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($quiz);
+        $entityManager->flush();
+        return $this->render('playing/result_of_quiz.html.twig');
+    }
 
 
 }

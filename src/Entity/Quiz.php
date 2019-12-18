@@ -49,6 +49,22 @@ class Quiz
      */
     private $questions;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $firstPlace;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $secondPlace;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $thirdPlace;
+
+
     public function __construct()
     {
         $this->results = new ArrayCollection();
@@ -186,6 +202,42 @@ class Quiz
     public function setUsersNumber(int $usersNumber): void
     {
         $this->usersNumber = $usersNumber;
+    }
+
+    public function getFirstPlace(): ?int
+    {
+        return $this->firstPlace;
+    }
+
+    public function setFirstPlace(int $firstPlace): self
+    {
+        $this->firstPlace = $firstPlace;
+
+        return $this;
+    }
+
+    public function getSecondPlace(): ?int
+    {
+        return $this->secondPlace;
+    }
+
+    public function setSecondPlace(?int $secondPlace): self
+    {
+        $this->secondPlace = $secondPlace;
+
+        return $this;
+    }
+
+    public function getThirdPlace(): ?int
+    {
+        return $this->thirdPlace;
+    }
+
+    public function setThirdPlace(?int $thirdPlace): self
+    {
+        $this->thirdPlace = $thirdPlace;
+
+        return $this;
     }
 
 }
