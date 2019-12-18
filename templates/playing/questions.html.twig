@@ -13,12 +13,7 @@
             {{ message }}
         </div>
     {% endfor %}
-    {% for message in app.flashes('no_answers') %}
-        <div class="alert alert-success">
-            {{ message }}
-        </div>
-    {% endfor %}
-    {% for message in app.flashes('too much') %}
+    {% for message in app.flashes('One Answer') %}
         <div class="alert alert-success">
             {{ message }}
         </div>

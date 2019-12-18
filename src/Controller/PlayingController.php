@@ -107,22 +107,26 @@ class PlayingController extends AbstractController
                 $user_answers[0] = $form['answer1']->getData();
                 $user_answers[1] = $form['answer2']->getData();
                 $user_answers[2] = $form['answer3']->getData();
-                $array_with_quiz_answers[0] = $answers[0]->getTrueOrNot();
-                $array_with_quiz_answers[1] = $answers[1]->getTrueOrNot();
-                $array_with_quiz_answers[2] = $answers[2]->getTrueOrNot();
-                if ($user_answers === $array_with_quiz_answers) {
-                    $result->setRightAnswers($result->getRightAnswers() + 1);
-                    $this->addFlash('right', 'Right Answer!');
-                } else
-                    $this->addFlash('false', 'Your answer is not right');
+                if (array_sum($user_answers) == 1) {
+                    $array_with_quiz_answers[0] = $answers[0]->getTrueOrNot();
+                    $array_with_quiz_answers[1] = $answers[1]->getTrueOrNot();
+                    $array_with_quiz_answers[2] = $answers[2]->getTrueOrNot();
+                    if ($user_answers === $array_with_quiz_answers) {
+                        $result->setRightAnswers($result->getRightAnswers() + 1);
+                        $this->addFlash('right', 'Right Answer!');
+                    } else
+                        $this->addFlash('false', 'Your answer is not right');
 
-                $result->addQuestion($question);
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($result);
-                $entityManager->flush();
-                return $this->redirectToRoute('playing_quiz_questions', [
-                    'id' => $result->getId(),
-                ]);
+                    $result->addQuestion($question);
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->persist($result);
+                    $entityManager->flush();
+                    return $this->redirectToRoute('playing_quiz_questions', [
+                        'id' => $result->getId(),
+                    ]);
+                }
+                else
+                    $this->addFlash('One Answer', 'Choose one answer!');
         }
         return $this->render('playing/questions.html.twig', [
             'question' => $question,
