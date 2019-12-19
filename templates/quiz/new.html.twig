@@ -3,6 +3,9 @@
 {% block title %}New Quiz{% endblock %}
 
 {% block body %}
+    {{ parent() }}
+
+
     <h1>Create new Quiz</h1>
 
     {{ include('quiz/_form.html.twig') }}

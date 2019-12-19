@@ -3,6 +3,8 @@
 {% block title %}Edit Question{% endblock %}
 
 {% block body %}
+    {{ parent() }}
+
     <h1>Edit Question</h1>
 
     {% for message in app.flashes('answers') %}

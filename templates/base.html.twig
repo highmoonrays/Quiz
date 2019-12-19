@@ -9,7 +9,10 @@
     <body>
         {% block body %}
             {% if is_granted("ROLE_USER") %}
-                <tr>You logged as {{ app.user.email }}</tr>
+                <div class="text-right">
+                    <a href={{ path('app_logout', {'id': app.user}) }}>Logout</a>
+                    <tr>You logged as {{ app.user.email }}</tr>
+                </div>
             {% endif %}
             {% if is_granted("ROLE_ADMIN") %}
                 <a href="{{ path('quiz_index') }}">Edit Quizzes</a>

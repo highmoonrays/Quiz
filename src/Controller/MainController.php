@@ -23,6 +23,7 @@ class MainController extends AbstractController
      */
     public function main(QuizRepository $quizRepository): Response
     {
+
         return $this->render('main/main_page.html.twig', [
             'quizzes' => $quizRepository->findBy(['status' => true]),
         ]);

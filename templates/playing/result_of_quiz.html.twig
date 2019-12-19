@@ -3,6 +3,8 @@
 {% block title %}Top players!{% endblock %}
 
 {% block body %}
+    {{ parent() }}
+
     {% for message in app.flashes('right') %}
         <div class="alert alert-success">
             {{ message }}

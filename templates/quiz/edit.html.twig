@@ -3,6 +3,8 @@
 {% block title %}Edit Quiz{% endblock %}
 
 {% block body %}
+    {{ parent() }}
+
     <h1>Edit Quiz</h1>
 
     <a href="{{ path('edit_quiz_questions_show', {'id': quiz.id}) }}">Add a question</a>

@@ -12,6 +12,9 @@ class HelloController extends AbstractController
      */
     public function hello()
     {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('main_page');
+        }
         return $this->render('hello/hello.html.twig');
     }
 }
