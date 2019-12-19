@@ -2,30 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="74fb5669-3723-4b1f-958f-6cb9483fcfa1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/templates/security/reset_password.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/quiz.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/quiz.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/HelloController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/HelloController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/MainController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/MainController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Security/LoginAuthenticator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/LoginAuthenticator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/playing/result_of_quiz.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/playing/result_of_quiz.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/question/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/question/edit.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/question/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/question/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/question/new.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/question/new.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/question/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/question/show.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/quiz/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/quiz/edit.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/quiz/edit_quiz_question_create.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/quiz/edit_quiz_question_create.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/quiz/edit_quiz_question_edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/quiz/edit_quiz_question_edit.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/quiz/edit_quiz_question_show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/quiz/edit_quiz_question_show.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/quiz/edit_quiz_questions_show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/quiz/edit_quiz_questions_show.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/quiz/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/quiz/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/quiz/new.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/quiz/new.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/quiz/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/quiz/show.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/user/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/edit.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/user/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/user/new.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/new.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/user/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/show.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/registration/register.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/register.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/security/login.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/security/login.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -188,6 +177,9 @@
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock" />
       <path value="$PROJECT_DIR$/vendor/zendframework/zend-code" />
       <path value="$PROJECT_DIR$/vendor/zendframework/zend-eventmanager" />
+      <path value="$PROJECT_DIR$/vendor/symfony/swiftmailer-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/google-mailer" />
+      <path value="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer" />
     </include_path>
   </component>
   <component name="ProjectId" id="1UWOEvf1203cWZXAibbIbkiJDVQ" />
@@ -258,7 +250,8 @@
       <workItem from="1576663283232" duration="8853000" />
       <workItem from="1576682857977" duration="4121000" />
       <workItem from="1576687402404" duration="3997000" />
-      <workItem from="1576752897358" duration="13441000" />
+      <workItem from="1576752897358" duration="19784000" />
+      <workItem from="1576775940259" duration="1382000" />
     </task>
     <servers />
   </component>
@@ -278,10 +271,10 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="640" y="357" width="697" height="390" key="#com.intellij.fileTypes.FileTypeChooser/67.27.1853.1053@67.27.1853.1053" timestamp="1576236971579" />
-    <state x="726" y="310" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1576760642530">
+    <state x="726" y="310" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1576771354722">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="726" y="310" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1576760642530" />
+    <state x="726" y="310" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1576771354722" />
     <state x="776" y="310" width="424" height="484" key="FileChooserDialogImpl" timestamp="1576594647516">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
@@ -302,10 +295,10 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state width="1244" height="278" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1576683337688" />
-    <state x="795" y="366" width="386" height="373" key="NewPhpClassDialog" timestamp="1575908968023">
+    <state x="795" y="366" width="386" height="373" key="NewPhpClassDialog" timestamp="1576770573605">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="795" y="366" width="386" height="373" key="NewPhpClassDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1575908968023" />
+    <state x="795" y="366" width="386" height="373" key="NewPhpClassDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1576770573605" />
     <state x="588" y="288" width="800" height="528" key="Vcs.Push.Dialog.v2" timestamp="1576587373779">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
@@ -314,10 +307,14 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="872" y="449" width="367" height="230" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/67.27.1853.1053@67.27.1853.1053" timestamp="1576338944414" />
-    <state x="644" y="378" key="com.intellij.ide.util.TipDialog" timestamp="1576752898446">
+    <state x="883" y="449" width="352" height="206" key="com.intellij.database.actions.ToolActions$ScriptingActionBase$1" timestamp="1576774701891">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="644" y="378" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1576752898446" />
+    <state x="883" y="449" width="352" height="206" key="com.intellij.database.actions.ToolActions$ScriptingActionBase$1/67.27.1853.1053@67.27.1853.1053" timestamp="1576774701891" />
+    <state x="644" y="378" key="com.intellij.ide.util.TipDialog" timestamp="1576775940440">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="644" y="378" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1576775940440" />
     <state x="647" y="170" width="683" height="764" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1576495283003">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
@@ -326,5 +323,9 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="637" y="288" width="713" height="528" key="find.popup/67.27.1853.1053@67.27.1853.1053" timestamp="1576236599202" />
+    <state x="657" y="253" key="run.anything.popup" timestamp="1576772732410">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="657" y="253" key="run.anything.popup/67.27.1853.1053@67.27.1853.1053" timestamp="1576772732410" />
   </component>
 </project>

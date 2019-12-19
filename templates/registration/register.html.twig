@@ -12,6 +12,12 @@
                     {{ form_row(registrationForm.firstName) }}
                     {{ form_row(registrationForm.lastName) }}
                     <button class="btn btn-primary btn-block">Register</button>
+                    <div class="card-3 offset-11">
+                        <a href="{{ path('app_login') }}">Or Login!</a>
+                    </div>
+                    <div class="card-3 offset-9">
+                        <a href="{{ path('reset_password') }}">Forgot Password?</a>
+                    </div>
                     {{ form_end(registrationForm) }}
                 </div>
             </div>
