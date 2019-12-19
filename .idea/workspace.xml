@@ -3,14 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="74fb5669-3723-4b1f-958f-6cb9483fcfa1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/MainController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/MainController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/PlayingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PlayingController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Quiz.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Quiz.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/hello/hello.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/hello/hello.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/main/main_page.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/main/main_page.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/playing/questions.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/playing/questions.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/playing/quiz_info.html.twig" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/playing/result_of_quiz.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/playing/result_of_quiz.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -206,7 +200,17 @@
       <list>
         <serviceView>
           <treeState>
-            <expand />
+            <expand>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:Quiz@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:Quiz@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@19b3feb" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+            </expand>
             <select />
           </treeState>
         </serviceView>
@@ -244,7 +248,7 @@
       <workItem from="1576663283232" duration="8853000" />
       <workItem from="1576682857977" duration="4121000" />
       <workItem from="1576687402404" duration="3997000" />
-      <workItem from="1576752897358" duration="10065000" />
+      <workItem from="1576752897358" duration="11479000" />
     </task>
     <servers />
   </component>

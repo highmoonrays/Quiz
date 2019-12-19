@@ -32,7 +32,7 @@
             <td>{{ place.firstName }}</td>
             <td>{{ place.lastname}}</td>
             <td>{{ place.email }}</td>
-            <td>{{ place.result.rightAnswers }}</td>
+            <td>{{ rightAnswers[loop.index - 1] }}</td>
         </tr>
         {% endif %}
     {% endfor %}

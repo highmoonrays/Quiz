@@ -151,8 +151,10 @@ class PlayingController extends AbstractController
             return ($result1->getRightAnswers() > $result2->getRightAnswers()) ? -1 : 1;
         });
         $places = [];
-        for ($i = 0; $i < count($results); $i++){
-            $places[$i] = $results[$i]->getUser();
+        $numberOfRightAnswers = [];
+        for ($index = 0; $index < count($results); $index++){
+            $places[$index] = $results[$index]->getUser();
+            $numberOfRightAnswers[$index] = $results[$index]->getRightAnswers();
         }
 
         foreach ($results as $result)
@@ -165,6 +167,7 @@ class PlayingController extends AbstractController
         $entityManager->flush();
         return $this->render('playing/result_of_quiz.html.twig', [
             'places' => $places,
+            'rightAnswers' => $numberOfRightAnswers,
             'yourPosition' => $yourPosition,
         ]);
     }
