@@ -49,6 +49,11 @@ class Quiz
      */
     private $questions;
 
+    /**
+     * @ORM\Column(type="object", nullable=true)
+     */
+    private $firstPlace;
+
 
     public function __construct()
     {
@@ -187,5 +192,17 @@ class Quiz
     public function setUsersNumber(int $usersNumber): void
     {
         $this->usersNumber = $usersNumber;
+    }
+
+    public function getFirstPlace()
+    {
+        return $this->firstPlace;
+    }
+
+    public function setFirstPlace($firstPlace): self
+    {
+        $this->firstPlace = $firstPlace;
+
+        return $this;
     }
 }

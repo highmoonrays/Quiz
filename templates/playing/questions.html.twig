@@ -3,6 +3,7 @@
 {% block title %}Play!{% endblock %}
 
 {% block body %}
+    {{ parent() }}
     {% for message in app.flashes('right') %}
         <div class="alert alert-success">
             {{ message }}
@@ -52,4 +53,6 @@
     <td>
     </td>
     <td>{{ include('playing/_form.html.twig') }}</td>
+    <br>
+    <a href="{{ path('main_page') }}">Back to Quizzes</a>
 {% endblock %}

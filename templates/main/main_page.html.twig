@@ -3,27 +3,32 @@
 {% block title %}Quiz index{% endblock %}
 
 {% block body %}
+    {{ parent() }}
     <h1>Quiz index</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>Quiz Number</th>
                 <th>Name</th>
                 <th>Status</th>
                 <th>Users</th>
-                <th>actions</th>
+                <th>First place</th>
             </tr>
         </thead>
         <tbody>
         {% for quiz in quizzes %}
             <tr>
-                <td>{{ quiz.id }}</td>
+                <td>{{ loop.index }}</td>
                 <td>{{ quiz.name }}</td>
                 <td>{{ quiz.status ? 'Yes' : 'No' }}</td>
                 <td>{{ quiz.usersNumber }}</td>
+                {% if quiz.firstPlace != null %}
+                    <td>{{ quiz.firstPlace }}</td>
+                {% else %}
+                    <td> - </td>
+                {% endif %}
                 <td>
-                    <a href="{{ path('quiz_show', {'id': quiz.id}) }}">show</a>
                     <a href="{{ path('start_playing', {'id': quiz.id}) }}">start</a>
                 </td>
             </tr>

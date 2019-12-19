@@ -1,5 +1,47 @@
-First place: {{ first.firstName }}, {{ first.lastName }} {{ first.email }}  <br>
-Second place: {{ second.firstName }}, {{ second.lastName }} {{ second.email }}<br>
-Third place: {{ third.firstName }}, {{ third.lastName }} {{ third.email }} <br>
+{% extends 'base.html.twig' %}
 
-Your Place is {{ yourPosition }}
+{% block title %}Top players!{% endblock %}
+
+{% block body %}
+    {% for message in app.flashes('right') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('false') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Place</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Number of Right Answers</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for place in places %}
+        {% if loop.index < 4 %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ place.firstName }}</td>
+            <td>{{ place.lastname}}</td>
+            <td>{{ place.email }}</td>
+            <td>{{ place.result.rightAnswers }}</td>
+        </tr>
+        {% endif %}
+    {% endfor %}
+    </tbody>
+</table>
+    <tr>Your Place is {{ yourPosition }}</tr>
+    <br>
+    <a href="{{ path('main_page') }}">Back to Quizzes</a>
+
+{% endblock %}
+
+

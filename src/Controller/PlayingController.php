@@ -150,18 +150,22 @@ class PlayingController extends AbstractController
             }
             return ($result1->getRightAnswers() > $result2->getRightAnswers()) ? -1 : 1;
         });
-        $firstPlace = $results[0]->getUser();
-        $secondPlace = $results[1]->getUser();
-        $thirdPlace = $results[2]->getUser();
-        foreach ($results as $result)
-            if ($result->getUser() == $this->getUser())
-            $your_position = array_search($result, $results) + 1;
+        $places = [];
+        for ($i = 0; $i < count($results); $i++){
+            $places[$i] = $results[$i]->getUser();
+        }
 
+        foreach ($results as $result)
+            if ($result->getUser() == $this->getUser()) {
+                $yourPosition = array_search($result, $results) + 1;
+            }
+        $quiz->setFirstPlace($places[0]->getFirstName() . ' ' . $places[0]->getLastName());
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($quiz);
+        $entityManager->flush();
         return $this->render('playing/result_of_quiz.html.twig', [
-            'first' => $firstPlace,
-            'second' => $secondPlace,
-            'third' => $thirdPlace,
-            'yourPosition' => $your_position,
+            'places' => $places,
+            'yourPosition' => $yourPosition,
         ]);
     }
 

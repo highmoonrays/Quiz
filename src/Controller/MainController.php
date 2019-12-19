@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace App\Controller;
 
+use App\Entity\Quiz;
 use App\Repository\QuizRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +24,7 @@ class MainController extends AbstractController
     public function main(QuizRepository $quizRepository): Response
     {
         return $this->render('main/main_page.html.twig', [
-            'quizzes' => $quizRepository->findAll(),
+            'quizzes' => $quizRepository->findBy(['status' => true]),
         ]);
     }
 }
