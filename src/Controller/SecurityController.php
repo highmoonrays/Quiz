@@ -46,8 +46,7 @@ class SecurityController extends AbstractController
      * @Route("/reset-password", name="reset_password", methods={"GET", "POST"})
      * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
-    public function resetPassword(Request $request, UserRepository $userRepository, \Swift_Mailer $mailer,
-                                  LoggerInterface $logger): Response
+    public function resetPassword(Request $request, UserRepository $userRepository, \Swift_Mailer $mailer): Response
     {
         $form = $this->createFormBuilder()
             ->add('email', EmailType::class)
@@ -55,28 +54,32 @@ class SecurityController extends AbstractController
             ->getForm();
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
-            if ($this->getDoctrine()->getRepository(User::class)->findOneBy(['email' => $form['email']->getData()])) {
-//                $name = $request->query->get('name');
-//                $message = new \Swift_Message('Test email');
-//                $message->setFrom('admin@zetcode.com');
-//                $message->setTo('admin2@zetcode.com');
-//                $message->setBody(
-//                    $this->renderView(
-//                        'emails/mymail.html.twig',
-//                        ['name' => $name]
-//                    ),
-//                    'text/html'
-//                );
-//                $mailer->send($message);
-//                $logger->info('email sent');
-//                $this->addFlash('notice', 'Email sent');
+            if ($this->getDoctrine()->getRepository(User::class)->
+            findOneBy(['email' => $form['email']->getData()])) {
+                $message = (new \Swift_Message('Reset Password'))
+                    ->setFrom('steachy.hm.123@gmail.com')
+                    ->setTo('omirom.omirom@gmail.com')
+                    ->setBody(
+                        $this->renderView('security/reset_password_message.html.twig'), 'text/html'
+                    )
+                ;
+                $mailer->send($message);
                 $this->addFlash('success', 'Message has been sent to your email pal');
-            } else {
+            }
+            else {
                 $this->addFlash('wrong', 'Did you wrote correct email?');
             }
         }
         return $this->render('security/reset_password.html.twig',[
                 'form' => $form->createView(),
             ]);
+    }
+
+    /**
+     * @Route("/new-password/{email}/{identifier}", name="new_password", methods={"GET","POST"})
+     */
+    public function setNewPassword()
+    {
+
     }
 }
