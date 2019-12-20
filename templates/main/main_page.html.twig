@@ -12,6 +12,7 @@
                 <th>Quiz Number</th>
                 <th>Name</th>
                 <th>Status</th>
+                <th>Date of Creation</th>
                 <th>Users</th>
                 <th>First place</th>
             </tr>
@@ -22,6 +23,7 @@
                 <td>{{ loop.index }}</td>
                 <td>{{ quiz.name }}</td>
                 <td>{{ quiz.status ? 'Yes' : 'No' }}</td>
+                <td>{{ quiz.createdAt ? quiz.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ quiz.usersNumber }}</td>
                 {% if quiz.firstPlace != null %}
                     <td>{{ quiz.firstPlace }}</td>

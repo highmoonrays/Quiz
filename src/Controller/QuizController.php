@@ -40,6 +40,7 @@ class QuizController extends AbstractController
     public function new(Request $request): Response
     {
         $quiz = new Quiz();
+        $quiz->setCreatedAt(new \DateTime());
         $form = $this->createForm(QuizType::class, $quiz);
         $form->handleRequest($request);
 

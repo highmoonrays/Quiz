@@ -4,12 +4,11 @@
 
 {% block body %}
     {{ parent() }}
-
-
     <h1>Create new Quiz</h1>
 
     {{ include('quiz/_form.html.twig') }}
     <a href="{{ path('question_index') }}">Add a question</a>
     <a href="{{ path('quiz_index') }}">back to list</a>
+
 
 {% endblock %}

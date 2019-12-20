@@ -4,7 +4,6 @@
 
 {% block body %}
     {{ parent() }}
-
     <h1>Create new Question</h1>
 
     {% for message in app.flashes('answers') %}
@@ -16,4 +15,7 @@
 
 
     <a href="{{ path('edit_quiz_questions_show', {'id': quiz.id}) }}">back to questions</a>
+
+    {{ parent() }}
+
 {% endblock %}

@@ -4,7 +4,6 @@
 
 {% block body %}
     {{ parent() }}
-
     <h1>Quiz index</h1>
 
     <table class="table">
@@ -13,6 +12,7 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Status</th>
+                <th>Date of Creation</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -22,6 +22,7 @@
                 <td>{{ quiz.id }}</td>
                 <td>{{ quiz.name }}</td>
                 <td>{{ quiz.status ? 'Yes' : 'No' }}</td>
+                <td>{{ quiz.createdAt ? quiz.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('quiz_show', {'id': quiz.id}) }}">show</a>
                     <a href="{{ path('quiz_edit', {'id': quiz.id}) }}">edit</a>
@@ -35,13 +36,5 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('quiz_new') }}">Create new Quiz</a>
-    <br>
-
-    <a href="{{ path('user_index') }}">Watch all registered Users</a>
-    <br>
-
-    <a href="{{ path('question_index') }}">Create new question here!</a>
-
+    <a href="{{ path('quiz_new') }}">Create new</a>
 {% endblock %}

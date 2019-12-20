@@ -54,6 +54,11 @@ class Quiz
      */
     private $firstPlace;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $createdAt;
+
 
     public function __construct()
     {
@@ -202,6 +207,18 @@ class Quiz
     public function setFirstPlace($firstPlace): self
     {
         $this->firstPlace = $firstPlace;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

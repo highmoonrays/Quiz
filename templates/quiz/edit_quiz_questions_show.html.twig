@@ -3,8 +3,8 @@
 {% block title %}Question index{% endblock %}
 
 {% block body %}
-    {{ parent() }}
 
+    {{ parent() }}
     <h1>Question index</h1>
 
     <table class="table">
@@ -37,4 +37,6 @@
     </table>
 
     <a href="{{ path('edit_quiz_question_create', {'id': quiz.id}) }}">Create new</a>
+
+
 {% endblock %}
