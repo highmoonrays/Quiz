@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="74fb5669-3723-4b1f-958f-6cb9483fcfa1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/security/reset_password_message.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Form/NewPasswordType.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/security/new_password.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/dev/swiftmailer.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/dev/swiftmailer.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/swiftmailer.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/swiftmailer.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/test/swiftmailer.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/test/swiftmailer.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/security/login.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/security/login.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/security/reset_password_message.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/security/reset_password_message.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -246,7 +245,7 @@
       <workItem from="1576687402404" duration="3997000" />
       <workItem from="1576752897358" duration="19784000" />
       <workItem from="1576775940259" duration="1872000" />
-      <workItem from="1576841734069" duration="3908000" />
+      <workItem from="1576841734069" duration="7277000" />
     </task>
     <servers />
   </component>
@@ -262,14 +261,14 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="723" y="306" width="800" height="677" key="#com.intellij.execution.impl.EditConfigurationsDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1576234994311" />
-    <state x="640" y="357" width="697" height="390" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1576236971579">
+    <state x="640" y="357" width="697" height="390" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1576849332588">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="640" y="357" width="697" height="390" key="#com.intellij.fileTypes.FileTypeChooser/67.27.1853.1053@67.27.1853.1053" timestamp="1576236971579" />
-    <state x="726" y="310" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1576771354722">
+    <state x="640" y="357" width="697" height="390" key="#com.intellij.fileTypes.FileTypeChooser/67.27.1853.1053@67.27.1853.1053" timestamp="1576849332588" />
+    <state x="726" y="310" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1576849381758">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="726" y="310" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1576771354722" />
+    <state x="726" y="310" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1576849381758" />
     <state x="776" y="310" width="424" height="484" key="FileChooserDialogImpl" timestamp="1576843275343">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
@@ -290,10 +289,10 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state width="1244" height="278" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1576683337688" />
-    <state x="795" y="366" width="386" height="373" key="NewPhpClassDialog" timestamp="1576770573605">
+    <state x="795" y="366" width="386" height="373" key="NewPhpClassDialog" timestamp="1576849341116">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="795" y="366" width="386" height="373" key="NewPhpClassDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1576770573605" />
+    <state x="795" y="366" width="386" height="373" key="NewPhpClassDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1576849341116" />
     <state x="588" y="288" width="800" height="528" key="Vcs.Push.Dialog.v2" timestamp="1576587373779">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
