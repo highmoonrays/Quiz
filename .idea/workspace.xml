@@ -2,20 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="74fb5669-3723-4b1f-958f-6cb9483fcfa1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/base.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/QuizController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/QuizController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Quiz.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Quiz.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UserController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/question/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/question/index.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/quiz/edit_quiz_question_create.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/quiz/edit_quiz_question_create.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/quiz/edit_quiz_question_edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/quiz/edit_quiz_question_edit.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/quiz/edit_quiz_question_show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/quiz/edit_quiz_question_show.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/quiz/edit_quiz_questions_show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/quiz/edit_quiz_questions_show.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/quiz/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/quiz/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/quiz/new.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/quiz/new.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/quiz/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/quiz/show.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/user/edit.html.twig" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/user/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/user/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/show.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -255,7 +252,7 @@
       <workItem from="1576687402404" duration="3997000" />
       <workItem from="1576752897358" duration="19784000" />
       <workItem from="1576775940259" duration="1872000" />
-      <workItem from="1576841734069" duration="10348000" />
+      <workItem from="1576841734069" duration="12859000" />
     </task>
     <servers />
   </component>

@@ -126,13 +126,20 @@ class QuizController extends AbstractController
     public function add_question(Quiz $quiz, Question $question): Response
     {
         foreach ($question->getQuizzes() as $value)
-            if ($value == $quiz)
-                return $this->redirectToRoute('quiz_index');
+            if ($value == $quiz) {
+                $this->addFlash('fail', 'This question is already in the quiz!');
+                return $this->redirectToRoute('edit_quiz_questions_show', [
+                    'id' => $quiz->getId(),
+                ]);
+            }
         $quiz->addQuestion($question);
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($quiz);
         $entityManager->flush();
-        return $this->redirectToRoute('quiz_index');
+        $this->addFlash('added', 'You just add a question to the quiz!');
+        return $this->redirectToRoute('edit_quiz_questions_show', [
+            'id' => $quiz->getId(),
+        ]);
     }
 
     /**
