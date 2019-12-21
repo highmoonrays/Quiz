@@ -4,7 +4,9 @@
 
 {% block body %}
     {{ parent() }}
-
+    {{ form_start(searchBar) }}
+    {{ form_widget(searchBar) }}
+    {{ form_end(searchBar) }}
     <h1>Users</h1>
 
     <table class="table">
@@ -20,6 +22,7 @@
             </tr>
         </thead>
         <tbody>
+        <ul>
         {% for user in users %}
             <tr>
                 <td>{{ user.id }}</td>
@@ -37,6 +40,10 @@
                 <td colspan="7">no records found</td>
             </tr>
         {% endfor %}
+        </ul>
         </tbody>
     </table>
+    <div class="navigation">
+        {{ knp_pagination_render(users) }}
+    </div>
 {% endblock %}

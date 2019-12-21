@@ -9,6 +9,7 @@ use App\Form\AnswersQuestionType;
 use App\Form\QuizType;
 use App\Repository\QuestionRepository;
 use App\Repository\QuizRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,10 +28,16 @@ class QuizController extends AbstractController
     /**
      * @Route("/", name="quiz_index", methods={"GET"})
      */
-    public function index(QuizRepository $quizRepository): Response
+    public function index(QuizRepository $quizRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $quizQuery = $quizRepository->findAll();
+        $quizzes = $paginator->paginate(
+            $quizQuery,
+            $request->query->getInt('page',1),
+            5
+        );
         return $this->render('quiz/index.html.twig', [
-            'quizzes' => $quizRepository->findAll(),
+            'quizzes' => $quizzes,
         ]);
     }
 
@@ -109,10 +116,17 @@ class QuizController extends AbstractController
      * @param QuestionRepository $questionRepository
      * @return Response
      */
-    public function show_all_questions(QuestionRepository $questionRepository, Quiz $quiz): Response
+    public function show_all_questions(QuestionRepository $questionRepository, Quiz $quiz,
+                                       Request $request, PaginatorInterface $paginator): Response
     {
+        $questionsQuery = $questionRepository->findAll();
+        $questions = $paginator->paginate(
+            $questionsQuery,
+            $request->query->getInt('page',1),
+            5
+        );
         return $this->render('quiz/edit_quiz_questions_show.html.twig', [
-            'questions' => $questionRepository->findAll(),
+            'questions' => $questions,
             'quiz' => $quiz,
         ]);
     }

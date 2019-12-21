@@ -36,5 +36,9 @@
         {% endfor %}
         </tbody>
     </table>
+    <div class="navigation">
+        {{ knp_pagination_render(quizzes) }}
+    </div>
+    <br>
     <a href="{{ path('quiz_new') }}">Create new</a>
 {% endblock %}

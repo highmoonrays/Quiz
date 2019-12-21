@@ -37,4 +37,7 @@
 
     <a href="{{ path('question_new') }}">Create new Question</a>
 
+    <div class="navigation">
+        {{ knp_pagination_render(questions) }}
+    </div>
 {% endblock %}

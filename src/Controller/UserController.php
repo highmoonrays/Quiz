@@ -3,12 +3,16 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\SearchBarType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @Route("/user")
@@ -16,12 +20,36 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/", name="user_index", methods={"GET"})
+     * @param UserRepository $userRepository
+     * @param PaginatorInterface $paginator
+     * @return Response
+     * @Route("/", name="user_index", methods={"GET", "POST"})
      */
-    public function index(UserRepository $userRepository): Response
+    public function index(UserRepository $userRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $form = $this->createForm(SearchBarType::class);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $information = $form['query']->getData();
+            $usersQuery = $userRepository->findBy(['email' => $information]);
+            $users = $paginator->paginate(
+                $usersQuery,
+                $request->query->getInt('page',1),
+                5
+            );
+        }
+        else {
+            $usersQuery = $userRepository->findAll();
+            $users = $paginator->paginate(
+                $usersQuery,
+                $request->query->getInt('page',1),
+                5
+            );
+        }
+
         return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
+            'users' => $users,
+            'searchBar' => $form->createView(),
         ]);
     }
 

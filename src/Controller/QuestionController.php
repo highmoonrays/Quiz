@@ -6,6 +6,7 @@ use App\Entity\Answer;
 use App\Form\AnswersQuestionType;
 use App\Entity\Question;
 use App\Repository\QuestionRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,10 +23,16 @@ class QuestionController extends AbstractController
      * @Route("/", name="question_index", methods={"GET"})
      * @return Response
      */
-    public function index(QuestionRepository $questionRepository): Response
+    public function index(QuestionRepository $questionRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $questionsQuery = $questionRepository->findAll();
+        $questions = $paginator->paginate(
+            $questionsQuery,
+            $request->query->getInt('page',1),
+            5
+        );
         return $this->render('question/index.html.twig', [
-            'questions' => $questionRepository->findAll(),
+            'questions' => $questions,
         ]);
     }
 
