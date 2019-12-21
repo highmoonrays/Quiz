@@ -30,22 +30,17 @@ class UserController extends AbstractController
         $form = $this->createForm(SearchBarType::class);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
-            $information = $form['query']->getData();
-            $usersQuery = $userRepository->findBy(['email' => $information]);
-            $users = $paginator->paginate(
-                $usersQuery,
-                $request->query->getInt('page',1),
-                5
-            );
+            $query = $form['query']->getData();
+            $usersQuery = $userRepository->findUsersByEmailField($query);
         }
         else {
             $usersQuery = $userRepository->findAll();
-            $users = $paginator->paginate(
-                $usersQuery,
-                $request->query->getInt('page',1),
-                5
-            );
         }
+        $users = $paginator->paginate(
+            $usersQuery,
+            $request->query->getInt('page',1),
+            5
+        );
 
         return $this->render('user/index.html.twig', [
             'users' => $users,
