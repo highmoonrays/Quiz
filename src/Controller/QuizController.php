@@ -10,6 +10,7 @@ use App\Form\QuizType;
 use App\Form\SearchBarType;
 use App\Repository\QuestionRepository;
 use App\Repository\QuizRepository;
+use App\Repository\ResultRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -114,10 +115,22 @@ class QuizController extends AbstractController
     /**
      * @Route("/{id}", name="quiz_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Quiz $quiz): Response
+    public function delete(Request $request, Quiz $quiz, ResultRepository $resultRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$quiz->getId(), $request->request->get('_token'))) {
+            $results = $quiz->getResults();
+            $users = $quiz->getUsers();
+            $questions = $quiz->getQuestions();
+            foreach ($questions as $question)
+                $quiz->removeQuestion($question);
+            foreach ($users as $user)
+                $quiz->removeUser($user);
+            foreach ($results as $result)
+                $quiz->removeResult($result);
             $entityManager = $this->getDoctrine()->getManager();
+            $results = $resultRepository->findBy(['quiz' => $quiz]);
+            foreach ($results as $result)
+                $entityManager->remove($result);
             $entityManager->remove($quiz);
             $entityManager->flush();
         }

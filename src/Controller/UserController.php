@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\SearchBarType;
 use App\Form\UserType;
+use App\Repository\ResultRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -84,10 +85,19 @@ class UserController extends AbstractController
     /**
      * @Route("/{id}", name="user_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, User $user): Response
+    public function delete(Request $request, User $user, ResultRepository $resultRepository): Response
     {
+        $results = $user->getResults();
+        $quizzes = $user->getQuizzes();
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+            foreach ($results as $result)
+                $user->removeResult($result);
+            foreach ($quizzes as $quiz)
+                $user->removeQuiz($quiz);
+            $results = $resultRepository->findBy(['user' => $user]);
+            foreach ($results as $result)
+                $entityManager->remove($result);
             $entityManager->remove($user);
             $entityManager->flush();
         }

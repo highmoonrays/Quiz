@@ -50,6 +50,7 @@
     </table>
 
     <a href="{{ path('edit_quiz_question_create', {'id': quiz.id}) }}">Create new</a>
+    <a href="{{ path('quiz_index') }}">Back to Quizzes</a>
     <div class="navigation">
         {{ knp_pagination_render(questions) }}
     </div>
