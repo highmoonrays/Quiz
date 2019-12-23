@@ -7,6 +7,7 @@ use App\Entity\Question;
 use App\Entity\Quiz;
 use App\Form\AnswersQuestionType;
 use App\Form\QuizType;
+use App\Form\SearchBarType;
 use App\Repository\QuestionRepository;
 use App\Repository\QuizRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -26,18 +27,31 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class QuizController extends AbstractController
 {
     /**
-     * @Route("/", name="quiz_index", methods={"GET"})
+     * @param QuizRepository $userRepository
+     * @param PaginatorInterface $paginator
+     * @return Response
+     * @Route("/", name="quiz_index", methods={"GET", "POST"})
      */
     public function index(QuizRepository $quizRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        $quizQuery = $quizRepository->findAll();
+        $form = $this->createForm(SearchBarType::class);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $query = $form['query']->getData();
+            $quizzesQuery = $quizRepository->findQuizzesByName($query);
+        }
+        else {
+            $quizzesQuery = $quizRepository->findAll();
+        }
         $quizzes = $paginator->paginate(
-            $quizQuery,
+            $quizzesQuery,
             $request->query->getInt('page',1),
-            5
+            7
         );
+
         return $this->render('quiz/index.html.twig', [
             'quizzes' => $quizzes,
+            'searchBar' => $form->createView(),
         ]);
     }
 
@@ -112,22 +126,31 @@ class QuizController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/question", name="edit_quiz_questions_show", methods={"GET"})
+     * @Route("/{id}/question", name="edit_quiz_questions_show", methods={"GET", "POST"})
      * @param QuestionRepository $questionRepository
      * @return Response
      */
     public function show_all_questions(QuestionRepository $questionRepository, Quiz $quiz,
                                        Request $request, PaginatorInterface $paginator): Response
     {
-        $questionsQuery = $questionRepository->findAll();
+        $form = $this->createForm(SearchBarType::class);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $query = $form['query']->getData();
+            $questionsQuery = $questionRepository->findQuestionsByName($query);
+        }
+        else {
+            $questionsQuery = $questionRepository->findAll();
+        }
         $questions = $paginator->paginate(
             $questionsQuery,
             $request->query->getInt('page',1),
-            5
+            10
         );
         return $this->render('quiz/edit_quiz_questions_show.html.twig', [
             'questions' => $questions,
             'quiz' => $quiz,
+            'searchBar' => $form->createView(),
         ]);
     }
 
@@ -183,9 +206,8 @@ class QuizController extends AbstractController
             $array[3] = $answer3->getTrueOrNot();
             if (array_sum($array) == 1) {
                 $entityManager->flush();
-                return $this->render('quiz/edit_quiz_questions_show.html.twig', [
-                    'questions' => $questionRepository->findAll(),
-                    'quiz' => $quiz,
+                return $this->redirectToRoute('edit_quiz_questions_show', [
+                    'id' => $quiz->getId(),
                 ]);
             }
             else

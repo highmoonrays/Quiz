@@ -39,7 +39,7 @@ class UserController extends AbstractController
         $users = $paginator->paginate(
             $usersQuery,
             $request->query->getInt('page',1),
-            5
+            7
         );
 
         return $this->render('user/index.html.twig', [

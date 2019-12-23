@@ -3,9 +3,17 @@
   <component name="ChangeListManager">
     <list default="true" id="74fb5669-3723-4b1f-958f-6cb9483fcfa1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/MainController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/MainController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/QuestionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/QuestionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/QuizController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/QuizController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/SearchBarType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/SearchBarType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/UserRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/QuestionRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/QuestionRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/QuizRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/QuizRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/main/main_page.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/main/main_page.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/question/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/question/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/quiz/edit_quiz_questions_show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/quiz/edit_quiz_questions_show.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/quiz/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/quiz/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -248,7 +256,8 @@
       <workItem from="1576752897358" duration="19784000" />
       <workItem from="1576775940259" duration="1872000" />
       <workItem from="1576841734069" duration="12859000" />
-      <workItem from="1576930079811" duration="6849000" />
+      <workItem from="1576930079811" duration="7101000" />
+      <workItem from="1577091594370" duration="3449000" />
     </task>
     <servers />
   </component>
@@ -268,10 +277,10 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="640" y="357" width="697" height="390" key="#com.intellij.fileTypes.FileTypeChooser/67.27.1853.1053@67.27.1853.1053" timestamp="1576933474949" />
-    <state x="726" y="310" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1576933520929">
+    <state x="726" y="310" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1577096351396">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="726" y="310" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1576933520929" />
+    <state x="726" y="310" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1577096351396" />
     <state x="776" y="310" width="424" height="484" key="FileChooserDialogImpl" timestamp="1576843275343">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
@@ -308,10 +317,10 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="883" y="449" width="352" height="206" key="com.intellij.database.actions.ToolActions$ScriptingActionBase$1/67.27.1853.1053@67.27.1853.1053" timestamp="1576774701891" />
-    <state x="644" y="378" key="com.intellij.ide.util.TipDialog" timestamp="1576930078547">
+    <state x="644" y="378" key="com.intellij.ide.util.TipDialog" timestamp="1577091594512">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="644" y="378" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1576930078547" />
+    <state x="644" y="378" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1577091594512" />
     <state x="647" y="170" width="683" height="764" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1576495283003">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>

@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Quiz;
+use App\Form\SearchBarType;
 use App\Repository\QuizRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,18 +22,28 @@ class MainController extends AbstractController
 {
 
     /**
-     * @Route("/main", name="main_page", methods={"GET"})
+     * @Route("/main", name="main_page", methods={"GET", "POST"})
      */
-    public function main(QuizRepository $quizRepository, Request $request, PaginatorInterface $paginator): Response
+    public function main(QuizRepository $quizRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        $quizQuery = $quizRepository->findAll();
+        $form = $this->createForm(SearchBarType::class);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $query = $form['query']->getData();
+            $quizzesQuery = $quizRepository->findQuizzesByName($query);
+        }
+        else {
+            $quizzesQuery = $quizRepository->findAll();
+        }
         $quizzes = $paginator->paginate(
-            $quizQuery,
+            $quizzesQuery,
             $request->query->getInt('page',1),
-            5
+            7
         );
-        return $this->render('main/main_page.html.twig', [
+
+        return $this->render('quiz/index.html.twig', [
             'quizzes' => $quizzes,
+            'searchBar' => $form->createView(),
         ]);
     }
 }

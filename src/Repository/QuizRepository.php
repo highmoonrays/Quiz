@@ -47,4 +47,27 @@ class QuizRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @return Quiz[] Returns an array of User objects
+     */
+
+    public function findQuizzesByName($query)
+    {
+        $qb = $this->createQueryBuilder('q');
+        $qb
+            ->where(
+                $qb->expr()->andX(
+                    $qb->expr()->orX(
+                        $qb->expr()->like('q.name', ':query')
+//                        $qb->expr()->like('u.firstName', ':query')
+                    )
+                )
+            )
+            ->setParameter('query', '%' . $query . '%')
+        ;
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
 }

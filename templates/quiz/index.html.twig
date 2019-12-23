@@ -4,6 +4,9 @@
 
 {% block body %}
     {{ parent() }}
+    {{ form_start(searchBar) }}
+    {{ form_widget(searchBar) }}
+    {{ form_end(searchBar) }}
     <h1>Quizzes</h1>
 
     <table class="table">

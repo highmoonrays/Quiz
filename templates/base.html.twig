@@ -10,12 +10,6 @@
     </head>
     <body>
         {% block body %}
-            {% if is_granted("ROLE_USER") %}
-                <div class="text-right" position="">
-                    <a href={{ path('app_logout', {'id': app.user}) }}>Logout</a>
-                    <tr>You logged as {{ app.user.email }}</tr>
-                </div>
-            {% endif %}
             {% if is_granted("ROLE_ADMIN") %}
                 <nav class="nav nav--red">
                     <ul class="nav__list">
@@ -25,6 +19,12 @@
                         <li class="nav__list__item"><a href="{{ path('main_page') }}">Play Quizzes</a></li>
                     </ul>
                 </nav>
+            {% endif %}
+            {% if is_granted("ROLE_USER") %}
+                <div class="text-right" >
+                    <a href={{ path('app_logout', {'id': app.user}) }}>Logout</a>
+                    <tr>You logged as {{ app.user.email }}</tr>
+                </div>
             {% endif %}
         {% endblock %}
         {% block javascripts %}{% endblock %}

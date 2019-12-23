@@ -47,4 +47,27 @@ class QuestionRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @return Question[] Returns an array of User objects
+     */
+
+    public function findQuestionsByName($query)
+    {
+        $qb = $this->createQueryBuilder('q');
+        $qb
+            ->where(
+                $qb->expr()->andX(
+                    $qb->expr()->orX(
+                        $qb->expr()->like('q.name', ':query')
+//                        $qb->expr()->like('u.firstName', ':query')
+                    )
+                )
+            )
+            ->setParameter('query', '%' . $query . '%')
+        ;
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
 }
