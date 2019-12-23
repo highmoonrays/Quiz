@@ -87,13 +87,13 @@ class PlayingController extends AbstractController
         }
 
         $form = $this->createFormBuilder()
-            ->add('answer1', CheckboxType::class, [
+            ->add('1', CheckboxType::class, [
                 'required' => false,
             ])
-            ->add('answer2', CheckboxType::class, [
+            ->add('2', CheckboxType::class, [
                 'required' => false,
             ])
-            ->add('answer3', CheckboxType::class, [
+            ->add('3', CheckboxType::class, [
                 'required' => false,
             ])
             ->add('submit', SubmitType::class)
@@ -102,9 +102,9 @@ class PlayingController extends AbstractController
 
 
         if ($form->get('submit')->isClicked()) {
-                $user_answers[0] = $form['answer1']->getData();
-                $user_answers[1] = $form['answer2']->getData();
-                $user_answers[2] = $form['answer3']->getData();
+                $user_answers[0] = $form['1']->getData();
+                $user_answers[1] = $form['2']->getData();
+                $user_answers[2] = $form['3']->getData();
                 if (array_sum($user_answers) == 1) {
                     $array_with_quiz_answers[0] = $answers[0]->getTrueOrNot();
                     $array_with_quiz_answers[1] = $answers[1]->getTrueOrNot();

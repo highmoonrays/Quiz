@@ -84,11 +84,11 @@ class SecurityController extends AbstractController
 
                 $mailer->send($message);
                 $this->addFlash('success', 'Message has been sent to your email pal');
-//                return $this->redirectToRoute('new_password', [
-//                    'email' => $form['email']->getData(),
-//                    'identifier' => $identifier,
-//                    'id' => $user->getId(),
-//                ]);
+                return $this->redirectToRoute('new_password', [
+                    'email' => $form['email']->getData(),
+                    'identifier' => $identifier,
+                    'id' => $user->getId(),
+                ]);
             }
             else {
                 $this->addFlash('wrong', 'Did you wrote correct email?');

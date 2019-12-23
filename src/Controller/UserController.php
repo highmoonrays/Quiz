@@ -91,13 +91,14 @@ class UserController extends AbstractController
         $quizzes = $user->getQuizzes();
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
-            foreach ($results as $result)
-                $user->removeResult($result);
-            foreach ($quizzes as $quiz)
-                $user->removeQuiz($quiz);
-            $results = $resultRepository->findBy(['user' => $user]);
-            foreach ($results as $result)
+            foreach ($results as $result) {
                 $entityManager->remove($result);
+            }
+            foreach ($quizzes as $quiz) {
+                $quiz->removeUser($user);
+                $quiz->setUsersNumber($quiz->getUsersNumber() - 1);
+                $entityManager->persist($quiz);
+            }
             $entityManager->remove($user);
             $entityManager->flush();
         }

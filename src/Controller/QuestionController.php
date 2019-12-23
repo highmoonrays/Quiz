@@ -7,6 +7,7 @@ use App\Form\AnswersQuestionType;
 use App\Entity\Question;
 use App\Form\SearchBarType;
 use App\Repository\QuestionRepository;
+use App\Repository\QuizRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -134,10 +135,23 @@ class QuestionController extends AbstractController
     /**
      * @Route("/{id}", name="question_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Question $question): Response
+    public function delete(Request $request, Question $question, QuizRepository $quizRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$question->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+            $quizzes = $question->getQuizzes();
+            $answers = $question->getAnswers();
+            foreach ($answers as $answer)
+                $entityManager->remove($answer);
+            foreach ($quizzes as $quiz) {
+                $results = $quiz->getResults();
+                foreach ($results as $result) {
+                    $result->removeQuestion($question);
+                    $entityManager->persist($result);
+                }
+                $quiz->removeQuestion($question);
+                $entityManager->persist($quiz);
+            }
             $entityManager->remove($question);
             $entityManager->flush();
         }

@@ -3,9 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="74fb5669-3723-4b1f-958f-6cb9483fcfa1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/PlayingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PlayingController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/QuestionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/QuestionController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/QuizController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/QuizController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/quiz/edit_quiz_questions_show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/quiz/edit_quiz_questions_show.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/playing/questions.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/playing/questions.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -207,7 +210,27 @@
       <list>
         <serviceView>
           <treeState>
-            <expand />
+            <expand>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:Quiz@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:Quiz@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@1bfaf99" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:Quiz@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@78426b08" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:Quiz@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@4462e949" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+            </expand>
             <select />
           </treeState>
         </serviceView>
@@ -249,7 +272,8 @@
       <workItem from="1576775940259" duration="1872000" />
       <workItem from="1576841734069" duration="12859000" />
       <workItem from="1576930079811" duration="7101000" />
-      <workItem from="1577091594370" duration="7895000" />
+      <workItem from="1577091594370" duration="9494000" />
+      <workItem from="1577106179555" duration="2852000" />
     </task>
     <servers />
   </component>
@@ -309,10 +333,10 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="883" y="449" width="352" height="206" key="com.intellij.database.actions.ToolActions$ScriptingActionBase$1/67.27.1853.1053@67.27.1853.1053" timestamp="1576774701891" />
-    <state x="644" y="378" key="com.intellij.ide.util.TipDialog" timestamp="1577091594512">
+    <state x="644" y="378" key="com.intellij.ide.util.TipDialog" timestamp="1577106179846">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="644" y="378" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1577091594512" />
+    <state x="644" y="378" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1577106179846" />
     <state x="647" y="170" width="683" height="764" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1576495283003">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
