@@ -14,6 +14,8 @@
         <th>Name</th>
         <th>Number of users</th>
         <th>Status</th>
+        <th>Users</th>
+        <th>First place</th>
     </tr>
     </thead>
     <tbody>
@@ -22,6 +24,13 @@
             <td>{{ quiz.name }}</td>
             <td>{{ quiz.usersNumber }}</td>
             <td>{{ quiz.status ? 'Yes' : 'No' }}</td>
+            <td>{{ quiz.usersNumber }}</td>
+            {% if quiz.firstPlace != null %}
+                <td>{{ quiz.firstPlace }}</td>
+            {% else %}
+                <td> - </td>
+            {% endif %}
+            <td>
         </tr>
     </tbody>
 </table>
@@ -56,6 +65,8 @@
 
 
     {{ include('quiz/_delete_form.html.twig') }}
+
+    <a href="{{ path('quiz_index') }}">back to list</a>
 
 
 {% endblock %}

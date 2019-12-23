@@ -35,13 +35,17 @@ class MainController extends AbstractController
         else {
             $quizzesQuery = $quizRepository->findAll();
         }
+        $activeQuizzes = [];
+        foreach ($quizzesQuery as $quiz)
+            if($quiz->getStatus() == true)
+                 array_push($activeQuizzes, $quiz);
         $quizzes = $paginator->paginate(
-            $quizzesQuery,
+            $activeQuizzes,
             $request->query->getInt('page',1),
             7
         );
 
-        return $this->render('quiz/index.html.twig', [
+        return $this->render('main/main_page.html.twig', [
             'quizzes' => $quizzes,
             'searchBar' => $form->createView(),
         ]);

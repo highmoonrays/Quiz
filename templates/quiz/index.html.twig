@@ -16,6 +16,8 @@
                 <th>Name</th>
                 <th>Status</th>
                 <th>Date of Creation</th>
+                <th>Users</th>
+                <th>First place</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -26,6 +28,12 @@
                 <td>{{ quiz.name }}</td>
                 <td>{{ quiz.status ? 'Yes' : 'No' }}</td>
                 <td>{{ quiz.createdAt ? quiz.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ quiz.usersNumber }}</td>
+                {% if quiz.firstPlace != null %}
+                    <td>{{ quiz.firstPlace }}</td>
+                {% else %}
+                    <td> - </td>
+                {% endif %}
                 <td>
                     <a href="{{ path('quiz_show', {'id': quiz.id}) }}">show</a>
                     <a href="{{ path('quiz_edit', {'id': quiz.id}) }}">edit</a>
