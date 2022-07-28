@@ -13,5 +13,19 @@
  */
 
 return [
-    // ...
+    'doctrine' => [
+        'connection' => [
+            'orm_default' => [
+                'driverClass'            =>
+                    Doctrine\DBAL\Driver\PDO\PgSQL\Driver::class,
+                'params'                 => [
+                    'user'     => 'quiz',
+                    'password' => 'quiz',
+                    'host'     => 'localhost',
+                    'port'     =>  5432,
+                    'dbname'   => 'quiz'
+                ]
+            ],
+        ]
+    ]
 ];
