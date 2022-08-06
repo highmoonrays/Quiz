@@ -10,11 +10,13 @@ use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Index;
+use Doctrine\ORM\Mapping\OneToOne;
 use Doctrine\ORM\Mapping\Table;
+use Role\Entity\Role;
 
 #[Entity]
 #[Table('user')]
-#[Index('id')]
+#[Index(['id'])]
 class User
 {
     #[Id]
@@ -64,6 +66,9 @@ class User
 
     #[Column(type: Types::DATETIME_MUTABLE, nullable: false)]
     private string $updated;
+
+    #[OneToOne(inversedBy: 'id', targetEntity: Role::class)]
+    private int $role;
 
     /**
      * @return int
@@ -223,6 +228,22 @@ class User
     public function setUpdated(string $updated): void
     {
         $this->updated = $updated;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRole(): int
+    {
+        return $this->role;
+    }
+
+    /**
+     * @param int $role
+     */
+    public function setRole(int $role): void
+    {
+        $this->role = $role;
     }
 
 }
