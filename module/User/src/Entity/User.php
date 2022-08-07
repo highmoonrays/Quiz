@@ -13,8 +13,9 @@ use Doctrine\ORM\Mapping\Index;
 use Doctrine\ORM\Mapping\OneToOne;
 use Doctrine\ORM\Mapping\Table;
 use Role\Entity\Role;
+use User\Repository\UserRepository;
 
-#[Entity]
+#[Entity(repositoryClass: UserRepository::class)]
 #[Table('user')]
 #[Index(['id'])]
 class User
@@ -67,8 +68,8 @@ class User
     #[Column(type: Types::DATETIME_MUTABLE, nullable: false)]
     private string $updated;
 
-    #[OneToOne(inversedBy: 'id', targetEntity: Role::class)]
-    private int $role;
+//    #[OneToOne(inversedBy: 'id', targetEntity: Role::class)]
+//    private int $role;
 
     /**
      * @return int
@@ -230,20 +231,20 @@ class User
         $this->updated = $updated;
     }
 
-    /**
-     * @return int
-     */
-    public function getRole(): int
-    {
-        return $this->role;
-    }
-
-    /**
-     * @param int $role
-     */
-    public function setRole(int $role): void
-    {
-        $this->role = $role;
-    }
+//    /**
+//     * @return int
+//     */
+//    public function getRole(): int
+//    {
+//        return $this->role;
+//    }
+//
+//    /**
+//     * @param int $role
+//     */
+//    public function setRole(int $role): void
+//    {
+//        $this->role = $role;
+//    }
 
 }
