@@ -6,7 +6,6 @@ namespace User\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Laminas\Mvc\Controller\AbstractActionController;
-use User\Entity\User;
 
 class UserController extends AbstractActionController
 {
@@ -16,9 +15,6 @@ class UserController extends AbstractActionController
 
     public function indexAction()
     {
-        $user = $this->entityManager->getRepository(User::class)
-            ->getAllUsers();
-        var_dump($user);
         exit;
     }
 }

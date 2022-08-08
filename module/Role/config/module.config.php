@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Role;
 
 use Doctrine\ORM\Mapping\Driver\AttributeDriver;
@@ -11,7 +13,7 @@ return [
                 'class' => AttributeDriver::class,
                 'cache' => 'array',
                 'paths' => [
-                    __DIR__ . '/../src/' . __NAMESPACE__ . '/Entity'
+                    __DIR__ . '/../src/Entity'
                 ],
             ],
             'orm_default' => [

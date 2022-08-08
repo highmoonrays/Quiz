@@ -10,8 +10,6 @@ use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use User\Controller\UserController;
-use User\Entity\User;
-use User\Repository\UserRepository;
 
 class UserControllerFactory implements FactoryInterface
 {
@@ -29,3 +27,4 @@ class UserControllerFactory implements FactoryInterface
         );
     }
 }
+

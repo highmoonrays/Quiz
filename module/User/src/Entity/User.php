@@ -10,13 +10,13 @@ use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Index;
-use Doctrine\ORM\Mapping\OneToOne;
+use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
 use Role\Entity\Role;
 use User\Repository\UserRepository;
 
 #[Entity(repositoryClass: UserRepository::class)]
-#[Table('user')]
+#[Table('quiz_user')]
 #[Index(['id'])]
 class User
 {
@@ -25,10 +25,22 @@ class User
     #[Column]
     private int $id;
 
-    #[Column(type: Types::STRING, length: 40, unique: true, nullable: false)]
+    #[Column(
+        name: 'username',
+        type: Types::STRING,
+        length: 40,
+        unique: true,
+        nullable: false
+    )]
     private string $username;
 
-    #[Column(type: Types::STRING, length: 128, unique: true, nullable: false)]
+    #[Column(
+        name: 'email',
+        type: Types::STRING,
+        length: 128,
+        unique: true,
+        nullable: false
+    )]
     private string $email;
 
     #[Column(type: Types::STRING, length: 80, nullable: false)]
@@ -68,8 +80,8 @@ class User
     #[Column(type: Types::DATETIME_MUTABLE, nullable: false)]
     private string $updated;
 
-//    #[OneToOne(inversedBy: 'id', targetEntity: Role::class)]
-//    private int $role;
+    #[OneToMany(mappedBy: 'id', targetEntity: Role::class)]
+    private array $roles;
 
     /**
      * @return int
@@ -89,10 +101,13 @@ class User
 
     /**
      * @param string $username
+     *
+     * @return User
      */
-    public function setUsername(string $username): void
+    public function setUsername(string $username): self
     {
         $this->username = $username;
+        return $this;
     }
 
     /**
@@ -105,10 +120,13 @@ class User
 
     /**
      * @param string $email
+     *
+     * @return User
      */
-    public function setEmail(string $email): void
+    public function setEmail(string $email): self
     {
         $this->email = $email;
+        return $this;
     }
 
     /**
@@ -121,10 +139,13 @@ class User
 
     /**
      * @param string $password
+     *
+     * @return User
      */
-    public function setPassword(string $password): void
+    public function setPassword(string $password): self
     {
         $this->password = $password;
+        return $this;
     }
 
     /**
@@ -137,10 +158,13 @@ class User
 
     /**
      * @param string $birthDay
+     *
+     * @return User
      */
-    public function setBirthDay(string $birthDay): void
+    public function setBirthDay(string $birthDay): self
     {
         $this->birthDay = $birthDay;
+        return $this;
     }
 
     /**
@@ -153,10 +177,13 @@ class User
 
     /**
      * @param string $gender
+     *
+     * @return User
      */
-    public function setGender(string $gender): void
+    public function setGender(string $gender): self
     {
         $this->gender = $gender;
+        return $this;
     }
 
     /**
@@ -177,10 +204,13 @@ class User
 
     /**
      * @param string $photo
+     *
+     * @return User
      */
-    public function setPhoto(string $photo): void
+    public function setPhoto(string $photo): self
     {
         $this->photo = $photo;
+        return $this;
     }
 
     /**
@@ -193,10 +223,13 @@ class User
 
     /**
      * @param int $active
+     *
+     * @return User
      */
-    public function setActive(int $active): void
+    public function setActive(int $active): self
     {
         $this->active = $active;
+        return $this;
     }
 
     /**
@@ -209,10 +242,13 @@ class User
 
     /**
      * @param string $created
+     *
+     * @return User
      */
-    public function setCreated(string $created): void
+    public function setCreated(string $created): self
     {
         $this->created = $created;
+        return $this;
     }
 
     /**
@@ -225,26 +261,32 @@ class User
 
     /**
      * @param string $updated
+     *
+     * @return User
      */
-    public function setUpdated(string $updated): void
+    public function setUpdated(string $updated): self
     {
         $this->updated = $updated;
+        return $this;
     }
 
-//    /**
-//     * @return int
-//     */
-//    public function getRole(): int
-//    {
-//        return $this->role;
-//    }
-//
-//    /**
-//     * @param int $role
-//     */
-//    public function setRole(int $role): void
-//    {
-//        $this->role = $role;
-//    }
+    /**
+     * @return Role[]|null
+     */
+    public function getRoles(): ?array
+    {
+        return $this->roles;
+    }
 
+    /**
+     * @param Role $role
+     *
+     * @return User
+     */
+    public function addRole(Role $role): self
+    {
+        $this->roles[] = $role;
+        return $this;
+    }
 }
+

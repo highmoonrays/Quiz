@@ -23,7 +23,7 @@ return [
                     'password' => 'quiz',
                     'host'     => 'localhost',
                     'port'     =>  5432,
-                    'dbname'   => 'quiz'
+                    'dbname'   => 'quiz',
                 ]
             ],
         ]
