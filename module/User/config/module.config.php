@@ -34,13 +34,13 @@ return [
     ],
     'router' => [
         'routes' => [
-            'signup' => [
+            'register' => [
                 'type'    => Literal::class,
                 'options' => [
-                    'route'    => '/signup',
+                    'route'    => '/register',
                     'defaults' => [
                         'controller' => Controller\AuthenticationController::class,
-                        'action'     => 'create',
+                        'action'     => 'register',
                     ],
                 ],
             ]
@@ -48,7 +48,8 @@ return [
     ],
     'view_manager' => [
         'template_map' => [
-            'authentication/create' => __DIR__ . '/../view/user/authentication/create.phtml',
+            'authentication/create' => __DIR__ .
+                '/../view/user/authentication/register.phtml',
 
         ],
         'template_path_stack' => [

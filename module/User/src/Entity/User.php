@@ -52,12 +52,6 @@ class User
     #[Column(type: Types::STRING, length: 10, nullable: false)]
     private string $gender;
 
-    private array $genders = [
-        'Female',
-        'Male',
-        'Other',
-    ];
-
     #[Column(
         type: Types::STRING,
         length: 128,
@@ -82,6 +76,12 @@ class User
 
     #[OneToMany(mappedBy: 'id', targetEntity: Role::class)]
     private array $roles;
+
+    public const GENDERS = [
+        'Female',
+        'Male',
+        'Other',
+    ];
 
     /**
      * @return int
@@ -184,14 +184,6 @@ class User
     {
         $this->gender = $gender;
         return $this;
-    }
-
-    /**
-     * @return array|string[]
-     */
-    public function getGenders(): array
-    {
-        return $this->genders;
     }
 
     /**

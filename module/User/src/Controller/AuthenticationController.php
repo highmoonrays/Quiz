@@ -6,11 +6,13 @@ namespace User\Controller;
 
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\ViewModel;
+use User\Form\RegistrationForm;
 
 class AuthenticationController extends AbstractActionController
 {
-    public function createAction()
+    public function registerAction()
     {
-        return new ViewModel();
+        $form = new RegistrationForm();
+        return new ViewModel(['form' => $form]);
     }
 }
