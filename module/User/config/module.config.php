@@ -6,12 +6,14 @@ namespace User;
 
 use Doctrine\ORM\Mapping\Driver\AttributeDriver;
 use Laminas\Router\Http\Literal;
+use Laminas\ServiceManager\Factory\InvokableFactory;
 use User\Controller\Factory\UserControllerFactory;
 
 return [
     'controllers' => [
         'factories' => [
             Controller\UserController::class => UserControllerFactory::class,
+            Controller\AuthenticationController::class => InvokableFactory::class
         ],
     ],
     'doctrine' => [
@@ -32,16 +34,25 @@ return [
     ],
     'router' => [
         'routes' => [
-            'user' => [
+            'signup' => [
                 'type'    => Literal::class,
                 'options' => [
-                    'route'    => '/user',
+                    'route'    => '/signup',
                     'defaults' => [
-                        'controller' => Controller\UserController::class,
-                        'action'     => 'index',
+                        'controller' => Controller\AuthenticationController::class,
+                        'action'     => 'create',
                     ],
                 ],
             ]
+        ],
+    ],
+    'view_manager' => [
+        'template_map' => [
+            'authentication/create' => __DIR__ . '/../view/user/authentication/create.phtml',
+
+        ],
+        'template_path_stack' => [
+            'user' => __DIR__ . '/../view',
         ],
     ],
 ];
