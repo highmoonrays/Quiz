@@ -2,23 +2,24 @@
 
 declare(strict_types=1);
 
-namespace User\Controller\Factory;
+namespace User\Form\Factory;
 
 use Doctrine\ORM\EntityManager;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
-use User\Controller\UserController;
+use User\Form\RegistrationForm;
+use User\Repository\UserRepository;
 
-class UserControllerFactory implements FactoryInterface
+class RegistrationFormFactory implements FactoryInterface
 {
     /**
      * @param ContainerInterface $container
      * @param                    $requestedName
      * @param array|null         $options
      *
-     * @return UserController
+     * @return RegistrationForm
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
@@ -26,10 +27,11 @@ class UserControllerFactory implements FactoryInterface
         ContainerInterface $container,
         $requestedName,
         ?array $options = null
-    ): UserController {
-        return new UserController(
-            $container->get(EntityManager::class)
+    ): RegistrationForm {
+        /** @var EntityManager $entityManager */
+        $entityManager = $container->get(EntityManager::class);
+        return new RegistrationForm(
+            $entityManager->getRepository(UserRepository::class)
         );
     }
 }
-

@@ -7,13 +7,21 @@ namespace User;
 use Doctrine\ORM\Mapping\Driver\AttributeDriver;
 use Laminas\Router\Http\Literal;
 use Laminas\ServiceManager\Factory\InvokableFactory;
+use User\Controller\Factory\AuthenticationControllerFactory;
 use User\Controller\Factory\UserControllerFactory;
+use User\Form\Factory\RegistrationFormFactory;
+use User\Form\RegistrationForm;
 
 return [
+    'form_elements' => [
+        'factories' => [
+            RegistrationForm::class => RegistrationFormFactory::class
+        ]
+    ],
     'controllers' => [
         'factories' => [
             Controller\UserController::class => UserControllerFactory::class,
-            Controller\AuthenticationController::class => InvokableFactory::class
+            Controller\AuthenticationController::class => AuthenticationControllerFactory::class
         ],
     ],
     'doctrine' => [

@@ -9,16 +9,17 @@ use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
-use User\Controller\UserController;
+use User\Controller\AuthenticationController;
 
-class UserControllerFactory implements FactoryInterface
+class AuthenticationControllerFactory implements FactoryInterface
 {
+
     /**
      * @param ContainerInterface $container
      * @param                    $requestedName
      * @param array|null         $options
      *
-     * @return UserController
+     * @return AuthenticationController
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
@@ -26,10 +27,9 @@ class UserControllerFactory implements FactoryInterface
         ContainerInterface $container,
         $requestedName,
         ?array $options = null
-    ): UserController {
-        return new UserController(
+    ): AuthenticationController {
+        return new AuthenticationController(
             $container->get(EntityManager::class)
         );
     }
 }
-

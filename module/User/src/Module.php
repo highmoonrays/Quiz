@@ -6,6 +6,9 @@ namespace User;
 
 class Module
 {
+    /**
+     * @return array
+     */
     public function getConfig(): array
     {
         /** @var array $config */
