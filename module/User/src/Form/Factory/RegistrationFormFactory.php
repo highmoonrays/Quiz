@@ -20,18 +20,12 @@ class RegistrationFormFactory implements FactoryInterface
      * @param array|null         $options
      *
      * @return RegistrationForm
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $container,
         $requestedName,
         ?array $options = null
     ): RegistrationForm {
-        /** @var EntityManager $entityManager */
-        $entityManager = $container->get(EntityManager::class);
-        return new RegistrationForm(
-            $entityManager->getRepository(UserRepository::class)
-        );
+        return new RegistrationForm();
     }
 }

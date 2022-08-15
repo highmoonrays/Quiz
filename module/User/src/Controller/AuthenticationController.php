@@ -29,10 +29,7 @@ class AuthenticationController extends AbstractActionController
         );
     }
 
-    /**
-     * @return ViewModel
-     */
-    public function registerAction(): ViewModel
+    public function registerAction()
     {
         $authentication = new AuthenticationService();
 
@@ -43,22 +40,29 @@ class AuthenticationController extends AbstractActionController
         $request = $this->getRequest();
 
         if ($request->isPost()) {
-            $formData = $request->getPost()->toArray();
+            $formData = $request->getPost();
             $form->setData($formData);
 
             if ($form->isValid()) {
                 try {
                     $data = $form->getData();
-                    $this->userRepository->createUser($data);
-                    $this->flushMessenger()->addSuccessMessage('Account created.');
-                    return $this->redirect()->toRoute('home'); //todo add a
-                    // redirect to the quiz home page
+                    if (
+                        $this->userRepository->validateUniqueFields($data)
+                    ) {
+                        $this->userRepository->createUser($data);
+                        $this->flashMessenger()->addSuccessMessage(
+                            'Account created.'
+                        );
+                        return $this->redirect()->toRoute('home');
+                    }
                 } catch (Exception $exception) {
-                    $this->flushMessenger()->addSuccessMessage('Something went wrong.');
+                    var_dump($exception->getMessage());exit;
+                    $this->flashMessenger()->addSuccessMessage('Something went wrong.');
                     return $this->redirect()->refresh();
                 }
             }
         }
+
         return new ViewModel(['form' => $form]);
     }
 }

@@ -56,15 +56,6 @@ $form->prepare();
                 </div>
             </div>
             <div class="mb-3">
-                <?= $this->formLabel($form->get('birthday')); ?>
-                <div class="form-group">
-                    <?= $this->formDateSelect($form->get('birthday')); ?>
-                </div>
-                <div class="text-danger">
-                    <?= $this->formElementErrors($form->get('birthday')) ;?>
-                </div>
-            </div>
-            <div class="mb-3">
                 <?= $this->formLabel($form->get('password')); ?>
                 <div class="form-group">
                     <?= $this->formText($form->get('password')); ?>

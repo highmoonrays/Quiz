@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace User\Form;
 
+use Laminas\Filter\StringToLower;
 use Laminas\Filter\StringTrim;
 use Laminas\Filter\StripTags;
 use Laminas\Form\Element\Csrf;
-use Laminas\Form\Element\DateSelect;
 use Laminas\Form\Element\Email;
 use Laminas\Form\Element\Password;
 use Laminas\Form\Element\Select;
@@ -17,21 +17,19 @@ use Laminas\Form\Form;
 use Laminas\I18n\Filter\Alnum;
 use Laminas\InputFilter\InputFilter;
 use Laminas\InputFilter\InputFilterInterface;
-use Laminas\Validator\Callback;
+use Laminas\Validator\EmailAddress;
+use Laminas\Validator\Identical;
+use Laminas\Validator\InArray;
 use Laminas\Validator\NotEmpty;
 use Laminas\Validator\StringLength;
-use User\Entity\User;
-use User\Repository\UserRepository;
 
 class RegistrationForm extends Form
 {
     /**
-     * @param UserRepository $userRepository
      * @param                $name
      * @param array          $options
      */
     public function __construct(
-        private readonly UserRepository $userRepository,
         $name = null,
         array $options = [],
     ) {
@@ -64,7 +62,11 @@ class RegistrationForm extends Form
                 'options'    => [
                     'label'         => 'Gender',
                     'empty_option'  => 'Choose an option.',
-                    'value_options' => User::GENDERS
+                    'value_options' => [
+                        'Female' => 'Female',
+                        'Male'   => 'Male',
+                        'Other'  => 'Other'
+                    ]
                 ],
                 'attributes' => [
                     'required' => true,
@@ -90,31 +92,6 @@ class RegistrationForm extends Form
                     'class'        => 'form-control',
                     'title'        => 'Provide a valid Email address.',
                     'placeholder'  => 'Enter email address.',
-                ]
-            ]
-        );
-
-        $this->add(
-            [
-                'type'       => DateSelect::class,
-                'name'       => 'birthday',
-                'options'    => [
-                    'label'               => 'Select your Birthdate',
-                    'create_empty_option' => true,
-                    'max_year'            => date('Y') - 13,
-                    'year-attributes'     => [
-                        'class' => 'custom-select w-30'
-                    ],
-                    'month-attributes'    => [
-                        'class' => 'custom-select w-30'
-                    ],
-                    'day-attributes'      => [
-                        'class' => 'custom-select w-30',
-                        'id'    => 'day'
-                    ],
-                ],
-                'attributes' => [
-                    'required' => true
                 ]
             ]
         );
@@ -224,30 +201,140 @@ class RegistrationForm extends Form
                                 ]
                             ]
                         ],
+                    ]
+                ],
+            );
+
+            $inputFilter->add(
+                [
+                    'name'       => 'gender',
+                    'required'   => true,
+                    'filters'    => [
+                        ['name' => StripTags::class],
+                        ['name' => StringTrim::class],
+                    ],
+                    'validators' => [
+                        ['name' => NotEmpty::class],
                         [
-                            'name'    => Callback::class,
+                            'name'    => InArray::class,
                             'options' => [
-                                'callback_params' => [
-                                    $this->userRepository
-                                ],
-                                'callback'        => function (
-                                    $value,
-                                    UserRepository $userRepository,
-                                ) {
-                                    $existingUsername =
-                                        $userRepository->findOneBy(
-                                            ['username' => $value]
-                                        );
-                                    if ($existingUsername) {
-                                        return false;
-                                    }
-                                    return $value;
-                                }
+                                'haystack' => ['Female', 'Male', 'Other']
                             ]
                         ]
-                    ]
-                ]
+                    ],
+                ],
             );
+
+            $inputFilter->add(
+                [
+                    'name'       => 'email',
+                    'required'   => true,
+                    'filters'    => [
+                        ['name' => StripTags::class],
+                        ['name' => StringTrim::class],
+                        ['name' => StringToLower::class],
+                    ],
+                    'validators' => [
+                        ['name' => NotEmpty::class],
+                        ['name' => EmailAddress::class],
+                        [
+                            'name'    => StringLength::class,
+                            'options' => [
+                                'min' => 6,
+                                'max' => 128,
+                                'messages' => [
+                                    StringLength::TOO_SHORT => 'Email address is too short.',
+                                    StringLength::TOO_LONG => 'Email address is too long',
+                                ]
+                            ]
+                        ]
+                    ],
+                ],
+            );
+
+            $inputFilter->add(
+                [
+                    'name'       => 'gender',
+                    'required'   => true,
+                    'filters'    => [
+                        ['name' => StripTags::class],
+                        ['name' => StringTrim::class],
+                    ],
+                    'validators' => [
+                        ['name' => NotEmpty::class],
+                    ],
+                ],
+            );
+
+            $inputFilter->add(
+                [
+                    'name'       => 'password',
+                    'required'   => true,
+                    'filters'    => [
+                        ['name' => StripTags::class],
+                        ['name' => StringTrim::class],
+                    ],
+                    'validators' => [
+                        ['name' => NotEmpty::class],
+                        [
+                            'name' => StringLength::class,
+                            'options' => [
+                                StringLength::TOO_SHORT => 'Password is too short.',
+                                StringLength::TOO_LONG => 'Password is too long.',
+                            ]
+                        ]
+                    ],
+                ],
+            );
+
+            $inputFilter->add(
+                [
+                    'name'       => 'confirm_password',
+                    'required'   => true,
+                    'filters'    => [
+                        ['name' => StripTags::class],
+                        ['name' => StringTrim::class],
+                    ],
+                    'validators' => [
+                        ['name' => NotEmpty::class],
+                        [
+                            'name' => StringLength::class,
+                            'options' => [
+                                StringLength::TOO_SHORT => 'Password is too short.',
+                                StringLength::TOO_LONG => 'Password is too long.',
+                            ]
+                        ],
+                        [
+                            'name' => Identical::class,
+                            'options' => [
+                                'token' => 'password',
+                                Identical::NOT_SAME => 'Password does not match.',
+                            ]
+                        ]
+                    ],
+                ],
+            );
+
+            $inputFilter->add(
+                [
+                    'name'       => 'csrf',
+                    'required'   => true,
+                    'filters'    => [
+                        ['name' => StripTags::class],
+                        ['name' => StringTrim::class],
+                    ],
+                    'validators' => [
+                        ['name' => NotEmpty::class],
+                        [
+                            'name' => \Laminas\Validator\Csrf::class,
+                            'options' => [
+                                \Laminas\Validator\Csrf::NOT_SAME => 'Please refill the form.',
+                            ]
+                        ]
+                    ],
+                ],
+            );
+
             $this->filter = $inputFilter;
         }
         return $this->filter;
