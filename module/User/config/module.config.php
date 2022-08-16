@@ -51,13 +51,25 @@ return [
                         'action'     => 'register',
                     ],
                 ],
+            ],
+            'login' => [
+                'type'    => Literal::class,
+                'options' => [
+                    'route'    => '/login',
+                    'defaults' => [
+                        'controller' => Controller\AuthenticationController::class,
+                        'action'     => 'login',
+                    ],
+                ],
             ]
         ],
     ],
     'view_manager' => [
         'template_map' => [
-            'authentication/create' => __DIR__ .
+            'authentication/register' => __DIR__ .
                 '/../view/user/authentication/register.phtml',
+            'login/index' => __DIR__ .
+                '/../view/user/authentication/login.phtml',
 
         ],
         'template_path_stack' => [

@@ -12,6 +12,7 @@ use Laminas\Http\Response;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\ViewModel;
 use User\Entity\User;
+use User\Form\LoginForm;
 use User\Form\RegistrationForm;
 use User\Repository\UserRepository;
 
@@ -29,13 +30,17 @@ class AuthenticationController extends AbstractActionController
         );
     }
 
-    public function registerAction()
+    /**
+     * @return Response|ViewModel
+     */
+    public function registerAction(): Response|ViewModel
     {
         $authentication = new AuthenticationService();
 
-//        if (!$authentication->hasIdentity()) {
-//            return $this->redirect()->toRoute('home');
-//        }
+        if ($authentication->hasIdentity()) {
+
+            return $this->redirect()->toRoute('home');
+        }
         $form = new RegistrationForm($this->userRepository);
         $request = $this->getRequest();
 
@@ -44,8 +49,10 @@ class AuthenticationController extends AbstractActionController
             $form->setData($formData);
 
             if ($form->isValid()) {
+
                 try {
                     $data = $form->getData();
+
                     if (
                         $this->userRepository->validateUniqueFields($data)
                     ) {
@@ -53,16 +60,25 @@ class AuthenticationController extends AbstractActionController
                         $this->flashMessenger()->addSuccessMessage(
                             'Account created.'
                         );
+
                         return $this->redirect()->toRoute('home');
                     }
                 } catch (Exception $exception) {
-                    var_dump($exception->getMessage());exit;
                     $this->flashMessenger()->addSuccessMessage('Something went wrong.');
+
                     return $this->redirect()->refresh();
                 }
             }
         }
 
         return new ViewModel(['form' => $form]);
+    }
+
+    public function loginAction()
+    {
+        $form = new LoginForm();
+
+        return (new ViewModel(['form' => $form]))->setTemplate('user/authentication/login');
+
     }
 }
