@@ -11,7 +11,9 @@ use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Index;
+use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\OneToOne;
 use Doctrine\ORM\Mapping\Table;
 use Role\Entity\Role;
 use User\Repository\UserRepository;
@@ -72,14 +74,9 @@ class User
     #[Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private DateTime $updated;
 
-//    #[OneToMany(mappedBy: 'id', targetEntity: Role::class)]
-//    private array $roles;
-
-    public const GENDERS = [
-        'Female',
-        'Male',
-        'Other',
-    ];
+    #[OneToOne(targetEntity: Role::class)]
+    #[JoinColumn(name: 'role_id', referencedColumnName: 'id')]
+    private ?Role $role = null;
 
     /**
      * @return int
@@ -241,23 +238,23 @@ class User
         return $this;
     }
 
-//    /**
-//     * @return Role[]|null
-//     */
-//    public function getRoles(): ?array
-//    {
-//        return $this->roles;
-//    }
-//
-//    /**
-//     * @param Role $role
-//     *
-//     * @return User
-//     */
-//    public function addRole(Role $role): self
-//    {
-//        $this->roles[] = $role;
-//        return $this;
-//    }
-}
+    /**
+     * @return Role|null
+     */
+    public function getRole(): ?Role
+    {
+        return $this->role;
+    }
 
+    /**
+     * @param Role $role
+     *
+     * @return User
+     */
+    public function setRole(Role $role): self
+    {
+        $this->role = $role;
+        return $this;
+    }
+
+}

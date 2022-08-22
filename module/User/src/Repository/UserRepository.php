@@ -5,12 +5,27 @@ declare(strict_types=1);
 namespace User\Repository;
 
 use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Mapping\ClassMetadata;
 use Laminas\Crypt\Password\Bcrypt;
+use Role\Entity\Role;
 use User\Entity\User;
 
 class UserRepository extends EntityRepository
 {
+    private EntityRepository $roleRepository;
+
+    public function __construct(
+        EntityManagerInterface $em,
+        ClassMetadata $class,
+    ) {
+        parent::__construct($em, $class);
+        $this->roleRepository = $this->getEntityManager()->getRepository(
+            Role::class
+        );
+    }
+
     /**
      * @param $data
      *
@@ -30,6 +45,10 @@ class UserRepository extends EntityRepository
         $user->setGender($data['gender']);
         $user->setCreated($timestamp);
         $user->setUpdated($timestamp);
+        $user->setRole(
+            $this->roleRepository->findOneBy(
+                ['name' => Role::MEMBER_ROLE_NAME])
+        );
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
 
