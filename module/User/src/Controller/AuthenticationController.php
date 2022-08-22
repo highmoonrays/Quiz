@@ -10,10 +10,12 @@ use Doctrine\ORM\EntityRepository;
 use Exception;
 use Laminas\Authentication\Adapter\DbTable\CredentialTreatmentAdapter;
 use Laminas\Authentication\AuthenticationService;
+use Laminas\Authentication\Result;
 use Laminas\Crypt\Password\Bcrypt;
 use Laminas\Db\Adapter\Adapter;
 use Laminas\Http\Response;
 use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\Session\SessionManager;
 use Laminas\View\Model\ViewModel;
 use User\Entity\User;
 use User\Form\LoginForm;
@@ -119,8 +121,35 @@ class AuthenticationController extends AbstractActionController
                             $result =
                                 $this->authenticationService->authenticate();
 
-                            if ($result->isValid()) {
-                                return $this->redirect()->toRoute('home');
+                            switch ($result->getCode()) {
+                                case Result::FAILURE_IDENTITY_NOT_FOUND:
+                                    $this->flashMessenger()->addErrorMessage(
+                                        'Incorrect Email.'
+                                    );
+                                    return $this->redirect()->refresh();
+                                case Result::FAILURE_CREDENTIAL_INVALID:
+                                    $this->flashMessenger()->addErrorMessage(
+                                        'Incorrect Password.'
+                                    );
+                                    return $this->redirect()->refresh();
+                                case Result::SUCCESS:
+                                    if ($data['recall'] === 1) {
+                                        $sessionManager = new SessionManager();
+                                        $ttl = 1814400;
+                                        $sessionManager->rememberMe($ttl);
+                                    }
+                                    return $this->redirect()->toRoute(
+                                        'profile',
+                                        [
+                                            'id' => $user->getId(),
+                                            'email' => $user->getEmail(),
+                                        ]
+                                    );
+                                default:
+                                    $this->flashMessenger()->addErrorMessage(
+                                        'Authentication Failure.'
+                                    );
+                                    return $this->redirect()->refresh();
                             }
                         } else {
                             $adapter->setCredential('');
