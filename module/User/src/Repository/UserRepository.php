@@ -42,7 +42,7 @@ class UserRepository extends EntityRepository
      *
      * @return bool
      */
-    public function isUniqueValue(string $field, mixed $value): bool
+    public function isExist(string $field, mixed $value): bool
     {
         return (bool)$this->findOneBy([$field => $value]);
     }
@@ -52,10 +52,20 @@ class UserRepository extends EntityRepository
      *
      * @return bool
      */
-    public function validateUniqueFields(array $data): bool
+    public function validateRegistration(array $data): bool
     {
         return
-            !$this->isUniqueValue('username', $data['username']) &&
-            !$this->isUniqueValue('email', $data['email']);
+            !$this->isExist('username', $data['username']) &&
+            !$this->isExist('email', $data['email']);
+    }
+
+    /**
+     * @param array $data
+     *
+     * @return bool
+     */
+    public function validateLogin(array $data): bool
+    {
+        return $this->isExist('email', $data['email']);
     }
 }

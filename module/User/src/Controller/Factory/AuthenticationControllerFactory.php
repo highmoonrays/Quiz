@@ -6,6 +6,7 @@ namespace User\Controller\Factory;
 
 use Doctrine\ORM\EntityManager;
 use Interop\Container\ContainerInterface;
+use Laminas\Authentication\AuthenticationService;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -29,7 +30,10 @@ class AuthenticationControllerFactory implements FactoryInterface
         ?array $options = null
     ): AuthenticationController {
         return new AuthenticationController(
-            $container->get(EntityManager::class)
+            $container->get(EntityManager::class),
+            $container->get('doctrine.authenticationservice.orm_default'),
         );
     }
+
 }
+

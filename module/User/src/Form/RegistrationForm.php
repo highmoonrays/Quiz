@@ -160,6 +160,9 @@ class RegistrationForm extends Form
         );
     }
 
+    /**
+     * @return InputFilterInterface
+     */
     public function getInputFilter(): InputFilterInterface
     {
         if (!$this->filter) {
@@ -339,4 +342,5 @@ class RegistrationForm extends Form
         }
         return $this->filter;
     }
+
 }

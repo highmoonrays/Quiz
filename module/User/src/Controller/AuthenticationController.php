@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace User\Controller;
 
+use CwBase\Helper\HashHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Exception;
+use Laminas\Authentication\Adapter\DbTable\CredentialTreatmentAdapter;
 use Laminas\Authentication\AuthenticationService;
+use Laminas\Crypt\Password\Bcrypt;
+use Laminas\Db\Adapter\Adapter;
 use Laminas\Http\Response;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\ViewModel;
@@ -18,12 +22,15 @@ use User\Repository\UserRepository;
 
 class AuthenticationController extends AbstractActionController
 {
-    private UserRepository $userRepository;
+    private EntityRepository $userRepository;
+
     /**
      * @param EntityManagerInterface $entityManager
+     * @param AuthenticationService  $authenticationService
      */
     public function __construct(
-        private readonly EntityManagerInterface $entityManager
+        private readonly EntityManagerInterface $entityManager,
+        private readonly AuthenticationService $authenticationService
     ) {
         $this->userRepository = $this->entityManager->getRepository(
             User::class
@@ -35,13 +42,11 @@ class AuthenticationController extends AbstractActionController
      */
     public function registerAction(): Response|ViewModel
     {
-        $authentication = new AuthenticationService();
-
-        if ($authentication->hasIdentity()) {
+        if ($this->authenticationService->hasIdentity()) {
 
             return $this->redirect()->toRoute('home');
         }
-        $form = new RegistrationForm($this->userRepository);
+        $form = new RegistrationForm();
         $request = $this->getRequest();
 
         if ($request->isPost()) {
@@ -49,22 +54,23 @@ class AuthenticationController extends AbstractActionController
             $form->setData($formData);
 
             if ($form->isValid()) {
-
                 try {
                     $data = $form->getData();
 
                     if (
-                        $this->userRepository->validateUniqueFields($data)
+                        $this->userRepository->validateRegistration($data)
                     ) {
                         $this->userRepository->createUser($data);
                         $this->flashMessenger()->addSuccessMessage(
                             'Account created.'
                         );
 
-                        return $this->redirect()->toRoute('home');
+                        return $this->redirect()->toRoute('login');
                     }
                 } catch (Exception $exception) {
-                    $this->flashMessenger()->addSuccessMessage('Something went wrong.');
+                    $this->flashMessenger()->addSuccessMessage(
+                        'Something went wrong.'
+                    );
 
                     return $this->redirect()->refresh();
                 }
@@ -74,11 +80,67 @@ class AuthenticationController extends AbstractActionController
         return new ViewModel(['form' => $form]);
     }
 
-    public function loginAction()
+    /**
+     * @return Response|ViewModel
+     */
+    public function loginAction(): Response|ViewModel
     {
+        if ($this->authenticationService->hasIdentity()) {
+            return $this->redirect()->toRoute('home');
+        }
         $form = new LoginForm();
+        $request = $this->getRequest();
 
-        return (new ViewModel(['form' => $form]))->setTemplate('user/authentication/login');
+        if ($request->isPost()) {
+            $formData = $request->getPost();
+            $form->setData($formData);
+
+            if ($form->isValid()) {
+                try {
+                    $data = $form->getData();
+                    $user = $this->userRepository->findOneBy(
+                        ['email' => $data['email']]
+                    );
+
+                    if (
+                        $user
+                    ) {
+                        $adapter = $this->authenticationService->getAdapter();
+                        $adapter->setIdentity($user->getEmail());
+                        $hash = new Bcrypt();
+
+                        if (
+                            $hash->verify(
+                                $data['password'],
+                                $user->getPassword()
+                            )
+                        ) {
+                            $adapter->setCredential($user->getPassword());
+                            $result =
+                                $this->authenticationService->authenticate();
+
+                            if ($result->isValid()) {
+                                return $this->redirect()->toRoute('home');
+                            }
+                        } else {
+                            $adapter->setCredential('');
+                        }
+                    }
+                } catch (Exception $exception) {
+                    $this->flashMessenger()->addSuccessMessage(
+                        'Something went wrong.'
+                    );
+
+                    return $this->redirect()->refresh();
+                }
+            }
+        }
+
+        return (new ViewModel(['form' => $form]))->setTemplate(
+            'user/authentication/login'
+        );
 
     }
+
 }
+

@@ -4,15 +4,30 @@ declare(strict_types=1);
 
 namespace User\Form;
 
+use Laminas\Filter\StringToLower;
+use Laminas\Filter\StringTrim;
+use Laminas\Filter\StripTags;
+use Laminas\Filter\ToInt;
 use Laminas\Form\Element\Checkbox;
 use Laminas\Form\Element\Csrf;
 use Laminas\Form\Element\Email;
 use Laminas\Form\Element\Password;
 use Laminas\Form\Element\Submit;
 use Laminas\Form\Form;
+use Laminas\I18n\Validator\IsInt;
+use Laminas\InputFilter\InputFilter;
+use Laminas\InputFilter\InputFilterInterface;
+use Laminas\Validator\EmailAddress;
+use Laminas\Validator\InArray;
+use Laminas\Validator\NotEmpty;
+use Laminas\Validator\StringLength;
 
 class LoginForm extends Form
 {
+    /**
+     * @param       $name
+     * @param array $options
+     */
     public function __construct($name = null, array $options = [])
     {
         parent::__construct('sign_in');
@@ -104,4 +119,113 @@ class LoginForm extends Form
             ]
         );
     }
+
+    /**
+     * @return InputFilterInterface
+     */
+    public function getInputFilter(): InputFilterInterface
+    {
+        if (!$this->filter) {
+            $inputFilter = new InputFilter();
+            $inputFilter->add(
+                [
+                    'name' => 'email',
+                    'required' => true,
+                    'filters' => [
+                        ['name' => StripTags::class],
+                        ['name' => StringTrim::class],
+                        ['name' => StringToLower::class]
+                    ],
+                    'validators' => [
+                        ['name' => NotEmpty::class],
+                        [
+                            'name' => StringLength::class,
+                            'options' => [
+                                'min' => 6,
+                                'max' => 128,
+                                'messages' => [
+                                    StringLength::TOO_SHORT => 'Too short.',
+                                    StringLength::TOO_LONG => 'Too long.',
+                                ]
+                            ]
+                        ],
+                        ['name' => EmailAddress::class],
+                    ]
+                ]
+            );
+
+            $inputFilter->add(
+                [
+                    'name' => 'password',
+                    'required' => true,
+                    'filters' => [
+                        ['name' => StripTags::class],
+                        ['name' => StringTrim::class]
+                    ],
+                    'validators' => [
+                        ['name' => NotEmpty::class],
+                        [
+                            'name' => StringLength::class,
+                            'options' => [
+                                'min' => 6,
+                                'max' => 128,
+                                'messages' => [
+                                    StringLength::TOO_SHORT => 'Too short.',
+                                    StringLength::TOO_LONG => 'Too long.',
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            );
+
+            $inputFilter->add(
+                [
+                    'name' => 'recall',
+                    'required' => true,
+                    'filters' => [
+                        ['name' => StripTags::class],
+                        ['name' => StringTrim::class],
+                        ['name' => ToInt::class]
+                    ],
+                    'validators' => [
+                        ['name' => NotEmpty::class],
+                        ['name' => IsInt::class],
+                        [
+                            'name' => InArray::class,
+                            'options' => [
+                                'haystack' => [0, 1],
+                            ]
+                        ]
+                    ]
+                ]
+            );
+
+            $inputFilter->add(
+                [
+                    'name'       => 'csrf',
+                    'required'   => true,
+                    'filters'    => [
+                        ['name' => StripTags::class],
+                        ['name' => StringTrim::class],
+                    ],
+                    'validators' => [
+                        ['name' => NotEmpty::class],
+                        [
+                            'name' => \Laminas\Validator\Csrf::class,
+                            'options' => [
+                                \Laminas\Validator\Csrf::NOT_SAME => 'Please refill the form.',
+                            ]
+                        ]
+                    ],
+                ],
+            );
+
+            $this->filter = $inputFilter;
+        }
+
+        return $this->filter;
+    }
+
 }
+

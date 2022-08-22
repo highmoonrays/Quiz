@@ -15,7 +15,7 @@ use User\Form\RegistrationForm;
 return [
     'form_elements' => [
         'factories' => [
-            RegistrationForm::class => RegistrationFormFactory::class
+            RegistrationForm::class => InvokableFactory::class
         ]
     ],
     'controllers' => [
@@ -38,6 +38,14 @@ return [
                     __NAMESPACE__ . '\Entity' => __NAMESPACE__
                 ]
             ]
+        ],
+        'authentication' => [
+            'orm_default' => [
+                'object_manager' => 'Doctrine\ORM\EntityManager',
+                'identity_class' => 'User\Entity\User',
+                'identity_property' => 'email',
+                'credential_property' => 'password',
+            ],
         ],
     ],
     'router' => [

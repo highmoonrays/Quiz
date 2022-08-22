@@ -72,8 +72,8 @@ class User
     #[Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private DateTime $updated;
 
-    #[OneToMany(mappedBy: 'id', targetEntity: Role::class)]
-    private array $roles;
+//    #[OneToMany(mappedBy: 'id', targetEntity: Role::class)]
+//    private array $roles;
 
     public const GENDERS = [
         'Female',
@@ -241,23 +241,23 @@ class User
         return $this;
     }
 
-    /**
-     * @return Role[]|null
-     */
-    public function getRoles(): ?array
-    {
-        return $this->roles;
-    }
-
-    /**
-     * @param Role $role
-     *
-     * @return User
-     */
-    public function addRole(Role $role): self
-    {
-        $this->roles[] = $role;
-        return $this;
-    }
+//    /**
+//     * @return Role[]|null
+//     */
+//    public function getRoles(): ?array
+//    {
+//        return $this->roles;
+//    }
+//
+//    /**
+//     * @param Role $role
+//     *
+//     * @return User
+//     */
+//    public function addRole(Role $role): self
+//    {
+//        $this->roles[] = $role;
+//        return $this;
+//    }
 }
 
