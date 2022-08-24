@@ -6,12 +6,22 @@ namespace User;
 
 use Doctrine\ORM\Mapping\Driver\AttributeDriver;
 use Laminas\Router\Http\Literal;
+use Laminas\ServiceManager\Factory\InvokableFactory;
+use User\Controller\Factory\AuthenticationControllerFactory;
 use User\Controller\Factory\UserControllerFactory;
+use User\Form\Factory\RegistrationFormFactory;
+use User\Form\RegistrationForm;
 
 return [
+    'form_elements' => [
+        'factories' => [
+            RegistrationForm::class => InvokableFactory::class
+        ]
+    ],
     'controllers' => [
         'factories' => [
             Controller\UserController::class => UserControllerFactory::class,
+            Controller\AuthenticationController::class => AuthenticationControllerFactory::class
         ],
     ],
     'doctrine' => [
@@ -29,19 +39,49 @@ return [
                 ]
             ]
         ],
+        'authentication' => [
+            'orm_default' => [
+                'object_manager' => 'Doctrine\ORM\EntityManager',
+                'identity_class' => 'User\Entity\User',
+                'identity_property' => 'email',
+                'credential_property' => 'password',
+            ],
+        ],
     ],
     'router' => [
         'routes' => [
-            'user' => [
+            'register' => [
                 'type'    => Literal::class,
                 'options' => [
-                    'route'    => '/user',
+                    'route'    => '/register',
                     'defaults' => [
-                        'controller' => Controller\UserController::class,
-                        'action'     => 'index',
+                        'controller' => Controller\AuthenticationController::class,
+                        'action'     => 'register',
+                    ],
+                ],
+            ],
+            'login' => [
+                'type'    => Literal::class,
+                'options' => [
+                    'route'    => '/login',
+                    'defaults' => [
+                        'controller' => Controller\AuthenticationController::class,
+                        'action'     => 'login',
                     ],
                 ],
             ]
+        ],
+    ],
+    'view_manager' => [
+        'template_map' => [
+            'authentication/register' => __DIR__ .
+                '/../view/user/authentication/register.phtml',
+            'login/index' => __DIR__ .
+                '/../view/user/authentication/login.phtml',
+
+        ],
+        'template_path_stack' => [
+            'user' => __DIR__ . '/../view',
         ],
     ],
 ];

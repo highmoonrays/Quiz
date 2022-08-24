@@ -16,6 +16,11 @@ use Doctrine\ORM\Mapping\Table;
 #[Index(['id'])]
 class Role
 {
+    /**
+     * @var string
+     */
+    public const MEMBER_ROLE_NAME = 'member';
+
     #[Id]
     #[GeneratedValue]
     #[Column]

@@ -11,7 +11,8 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-        $this->flashMessenger()->addMessage('it works');
         return new ViewModel();
     }
+
 }
+

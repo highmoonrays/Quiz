@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace User\Entity;
 
+use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Index;
+use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\OneToOne;
 use Doctrine\ORM\Mapping\Table;
 use Role\Entity\Role;
 use User\Repository\UserRepository;
@@ -46,22 +49,13 @@ class User
     #[Column(type: Types::STRING, length: 80, nullable: false)]
     private string $password;
 
-    #[Column(type: Types::DATE_MUTABLE, nullable: false)]
-    private string $birthDay;
-
     #[Column(type: Types::STRING, length: 10, nullable: false)]
     private string $gender;
-
-    private array $genders = [
-        'Female',
-        'Male',
-        'Other',
-    ];
 
     #[Column(
         type: Types::STRING,
         length: 128,
-        nullable: false,
+        nullable: true,
         options: ['default' => 'default.png']
     )]
     private string $photo;
@@ -74,14 +68,15 @@ class User
     )]
     private int $active;
 
-    #[Column(type: Types::DATETIME_MUTABLE, nullable: false)]
-    private string $created;
+    #[Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private DateTime $created;
 
-    #[Column(type: Types::DATETIME_MUTABLE, nullable: false)]
-    private string $updated;
+    #[Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private DateTime $updated;
 
-    #[OneToMany(mappedBy: 'id', targetEntity: Role::class)]
-    private array $roles;
+    #[OneToOne(targetEntity: Role::class)]
+    #[JoinColumn(name: 'role_id', referencedColumnName: 'id')]
+    private ?Role $role = null;
 
     /**
      * @return int
@@ -151,25 +146,6 @@ class User
     /**
      * @return string
      */
-    public function getBirthDay(): string
-    {
-        return $this->birthDay;
-    }
-
-    /**
-     * @param string $birthDay
-     *
-     * @return User
-     */
-    public function setBirthDay(string $birthDay): self
-    {
-        $this->birthDay = $birthDay;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
     public function getGender(): string
     {
         return $this->gender;
@@ -184,14 +160,6 @@ class User
     {
         $this->gender = $gender;
         return $this;
-    }
-
-    /**
-     * @return array|string[]
-     */
-    public function getGenders(): array
-    {
-        return $this->genders;
     }
 
     /**
@@ -233,49 +201,49 @@ class User
     }
 
     /**
-     * @return string
+     * @return DateTime
      */
-    public function getCreated(): string
+    public function getCreated(): DateTime
     {
         return $this->created;
     }
 
     /**
-     * @param string $created
+     * @param DateTime $created
      *
      * @return User
      */
-    public function setCreated(string $created): self
+    public function setCreated(DateTime $created): self
     {
         $this->created = $created;
         return $this;
     }
 
     /**
-     * @return string
+     * @return DateTime
      */
-    public function getUpdated(): string
+    public function getUpdated(): DateTime
     {
         return $this->updated;
     }
 
     /**
-     * @param string $updated
+     * @param DateTime $updated
      *
      * @return User
      */
-    public function setUpdated(string $updated): self
+    public function setUpdated(DateTime $updated): self
     {
         $this->updated = $updated;
         return $this;
     }
 
     /**
-     * @return Role[]|null
+     * @return Role|null
      */
-    public function getRoles(): ?array
+    public function getRole(): ?Role
     {
-        return $this->roles;
+        return $this->role;
     }
 
     /**
@@ -283,10 +251,10 @@ class User
      *
      * @return User
      */
-    public function addRole(Role $role): self
+    public function setRole(Role $role): self
     {
-        $this->roles[] = $role;
+        $this->role = $role;
         return $this;
     }
-}
 
+}
