@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Index;
 use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\OneToOne;
 use Doctrine\ORM\Mapping\Table;
@@ -74,7 +75,7 @@ class User
     #[Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private DateTime $updated;
 
-    #[OneToOne(targetEntity: Role::class)]
+    #[ManyToOne(targetEntity: Role::class)]
     #[JoinColumn(name: 'role_id', referencedColumnName: 'id')]
     private ?Role $role = null;
 
