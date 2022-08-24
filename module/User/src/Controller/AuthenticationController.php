@@ -89,7 +89,7 @@ class AuthenticationController extends AbstractActionController
     {
         if ($this->authenticationService->hasIdentity()) {
 
-            return $this->redirect()->toRoute('home');
+//            return $this->redirect()->toRoute('home');
         }
         $form = new LoginForm();
         $request = $this->getRequest();
@@ -149,7 +149,7 @@ class AuthenticationController extends AbstractActionController
                                         'profile',
                                         [
                                             'id' => $user->getId(),
-                                            'email' => $user->getEmail(),
+                                            'username' => $user->getUsername(),
                                         ]
                                     );
 

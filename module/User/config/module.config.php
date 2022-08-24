@@ -6,6 +6,7 @@ namespace User;
 
 use Doctrine\ORM\Mapping\Driver\AttributeDriver;
 use Laminas\Router\Http\Literal;
+use Laminas\Router\Http\Segment;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use User\Controller\Factory\AuthenticationControllerFactory;
 use User\Controller\Factory\UserControllerFactory;
@@ -21,7 +22,8 @@ return [
     'controllers' => [
         'factories' => [
             Controller\UserController::class => UserControllerFactory::class,
-            Controller\AuthenticationController::class => AuthenticationControllerFactory::class
+            Controller\AuthenticationController::class => AuthenticationControllerFactory::class,
+            Controller\ProfileController::class => InvokableFactory::class
         ],
     ],
     'doctrine' => [
@@ -69,7 +71,22 @@ return [
                         'action'     => 'login',
                     ],
                 ],
+            ],
+            'profile' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/profile[/:id[/:username]]',
+                    'constraints' => [
+                        'id' => '[0-9]+',
+                        'username' => '[a-zA-Z][a-zA-Z0-9_-]+',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\ProfileController::class,
+                        'action'     => 'profile',
+                    ],
+                ],
             ]
+
         ],
     ],
     'view_manager' => [
@@ -78,7 +95,8 @@ return [
                 '/../view/user/authentication/register.phtml',
             'login/index' => __DIR__ .
                 '/../view/user/authentication/login.phtml',
-
+            'profile/profile' => __DIR__ .
+                '/../view/user/profile/profile.phtml',
         ],
         'template_path_stack' => [
             'user' => __DIR__ . '/../view',
