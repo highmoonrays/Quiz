@@ -88,6 +88,7 @@ class AuthenticationController extends AbstractActionController
     public function loginAction(): Response|ViewModel
     {
         if ($this->authenticationService->hasIdentity()) {
+
             return $this->redirect()->toRoute('home');
         }
         $form = new LoginForm();
@@ -126,18 +127,24 @@ class AuthenticationController extends AbstractActionController
                                     $this->flashMessenger()->addErrorMessage(
                                         'Incorrect Email.'
                                     );
+
                                     return $this->redirect()->refresh();
+
                                 case Result::FAILURE_CREDENTIAL_INVALID:
                                     $this->flashMessenger()->addErrorMessage(
                                         'Incorrect Password.'
                                     );
+
                                     return $this->redirect()->refresh();
+
                                 case Result::SUCCESS:
+
                                     if ($data['recall'] === 1) {
                                         $sessionManager = new SessionManager();
                                         $ttl = 1814400;
                                         $sessionManager->rememberMe($ttl);
                                     }
+
                                     return $this->redirect()->toRoute(
                                         'profile',
                                         [
@@ -145,10 +152,12 @@ class AuthenticationController extends AbstractActionController
                                             'email' => $user->getEmail(),
                                         ]
                                     );
+
                                 default:
                                     $this->flashMessenger()->addErrorMessage(
                                         'Authentication Failure.'
                                     );
+
                                     return $this->redirect()->refresh();
                             }
                         } else {
