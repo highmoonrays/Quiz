@@ -175,11 +175,12 @@ class AuthenticationController extends AbstractActionController
 
     }
 
-    public function logoutAction()
+    /**
+     * @return Response
+     */
+    public function logoutAction(): Response
     {
-        if ($this->authenticationService->hasIdentity()) {
-            $this->authenticationService->clearIdentity();
-        }
+        $this->authenticationService->clearIdentity();
 
         return $this->redirect()->toRoute('login');
     }
