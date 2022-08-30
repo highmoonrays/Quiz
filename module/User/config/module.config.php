@@ -85,8 +85,21 @@ return [
                         'action'     => 'profile',
                     ],
                 ],
+            ],
+            'logout' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/logout',
+                    'constraints' => [
+                        'id' => '[0-9]+',
+                        'username' => '[a-zA-Z][a-zA-Z0-9_-]+',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\AuthenticationController::class,
+                        'action'     => 'logout',
+                    ],
+                ],
             ]
-
         ],
     ],
     'view_manager' => [

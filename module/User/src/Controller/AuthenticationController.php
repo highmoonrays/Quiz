@@ -4,15 +4,12 @@ declare(strict_types=1);
 
 namespace User\Controller;
 
-use CwBase\Helper\HashHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Exception;
-use Laminas\Authentication\Adapter\DbTable\CredentialTreatmentAdapter;
 use Laminas\Authentication\AuthenticationService;
 use Laminas\Authentication\Result;
 use Laminas\Crypt\Password\Bcrypt;
-use Laminas\Db\Adapter\Adapter;
 use Laminas\Http\Response;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\Session\SessionManager;
@@ -20,7 +17,6 @@ use Laminas\View\Model\ViewModel;
 use User\Entity\User;
 use User\Form\LoginForm;
 use User\Form\RegistrationForm;
-use User\Repository\UserRepository;
 
 class AuthenticationController extends AbstractActionController
 {
@@ -88,8 +84,7 @@ class AuthenticationController extends AbstractActionController
     public function loginAction(): Response|ViewModel
     {
         if ($this->authenticationService->hasIdentity()) {
-
-//            return $this->redirect()->toRoute('home');
+            return $this->redirect()->toRoute('home');
         }
         $form = new LoginForm();
         $request = $this->getRequest();
@@ -178,6 +173,15 @@ class AuthenticationController extends AbstractActionController
             'user/authentication/login'
         );
 
+    }
+
+    public function logoutAction()
+    {
+        if ($this->authenticationService->hasIdentity()) {
+            $this->authenticationService->clearIdentity();
+        }
+
+        return $this->redirect()->toRoute('login');
     }
 
 }
